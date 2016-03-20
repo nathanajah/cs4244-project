@@ -1,6 +1,9 @@
 package controllers;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
@@ -22,9 +25,7 @@ public class InputPage extends GridPane {
      */
     @FXML
     public void analyze(ActionEvent event) {
-        List<Module> futureModule = moduleSelector.getFutureModules();
-        List<Module> takenModule = moduleSelector.getTakenModules();
-        //TODO: actually analyze
+        propertyOnAnalyze.get().handle(event);
     }
 
     /**
@@ -37,6 +38,22 @@ public class InputPage extends GridPane {
         moduleSelector.reset();
     }
 
+    /**
+     * Return the modules that the student wants to take.
+     * @return The modules that the student wants to take.
+     */
+    public List<Module> getFutureModules() {
+        return moduleSelector.getFutureModules();
+    }
+
+    /**
+     * Return the modules that the student has taken.
+     * @return The modules that the student has taken.
+     */
+    public List<Module> getTakenModules() {
+        return moduleSelector.getTakenModules();
+    }
+
     public InputPage() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/input_page.fxml"));
         loader.setRoot(this);
@@ -46,5 +63,19 @@ public class InputPage extends GridPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    private ObjectProperty<EventHandler<ActionEvent>> propertyOnAnalyze = new SimpleObjectProperty<>();
+
+    public final ObjectProperty<EventHandler<ActionEvent>> onAnalyzeProperty() {
+        return propertyOnAnalyze;
+    }
+
+    public final void setOnAnalyze(EventHandler<ActionEvent> handler) {
+        propertyOnAnalyze.set(handler);
+    }
+
+    public final EventHandler<ActionEvent> getOnAnalyze() {
+        return propertyOnAnalyze.get();
     }
 }

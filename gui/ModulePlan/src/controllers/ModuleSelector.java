@@ -13,6 +13,7 @@ import util.IModuleLoader;
 import util.MockModuleLoader;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class ModuleSelector extends GridPane {
     private ObservableList<Module> takenModules = FXCollections.observableArrayList();
     private ObservableList<Module> futureModules = FXCollections.observableArrayList();
     private ObservableList<Module> availableModules = FXCollections.observableArrayList();
+    private List<Module> moduleList = new ArrayList<Module>();
 
     private DataFormat moduleDataFormat = new DataFormat("module");
 
@@ -101,8 +103,9 @@ public class ModuleSelector extends GridPane {
         IModuleLoader moduleLoader = new MockModuleLoader();
         List<Module> modules = moduleLoader.loadModule();
         for (Module module : modules) {
-            availableModules.add(module);
+            moduleList.add(module);
         }
+        reset();
     }
 
     /**
@@ -124,6 +127,31 @@ public class ModuleSelector extends GridPane {
         takenView.setOnDragOver(generateOnDragOverHandler(takenView));
         availableView.setOnDragOver(generateOnDragOverHandler(availableView));
         futureView.setOnDragOver(generateOnDragOverHandler(futureView));
+    }
+
+    /**
+     * Return the list of modules that the student has taken.
+     * @return The list of modules that the student has taken.
+     */
+    public List<Module> getTakenModules() {
+       return new ArrayList<>(takenModules);
+    }
+
+    /**
+     * Get the list of modules that the student wants to take.
+     * @return The list of modules that the student wants to take.
+     */
+    public List<Module> getFutureModules() {
+        return new ArrayList<>(futureModules);
+    }
+
+    /**
+     * Resets the interface.
+     */
+    public void reset() {
+        takenModules.setAll();
+        futureModules.setAll();
+        availableModules.setAll(moduleList);
     }
 
     public ModuleSelector() {

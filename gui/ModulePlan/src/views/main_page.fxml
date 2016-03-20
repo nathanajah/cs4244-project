@@ -1,0 +1,14 @@
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import controllers.InputPage?>
+<?import javafx.scene.text.Text?>
+<fx:root type="javafx.scene.layout.GridPane"
+         xmlns:fx="http://javafx.com/fxml"
+         alignment="center"
+         hgap="10"
+         vgap="10"
+>
+    <InputPage GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="inputPage" onAnalyze="#analyze"></InputPage>
+</fx:root>
