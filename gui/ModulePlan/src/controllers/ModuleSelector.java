@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by nathanajah on 3/17/16.
  */
-public class ModuleSelectorController extends GridPane {
+public class ModuleSelector extends GridPane {
     @FXML
     private ListView<Module> takenView;
     @FXML
@@ -33,6 +33,12 @@ public class ModuleSelectorController extends GridPane {
 
     private DataFormat moduleDataFormat = new DataFormat("module");
 
+    /**
+     * Generate the onDragDetected EventHandler for a list.
+     * The handler will create a Dragboard and put the module data inside the content.
+     * @param list The list that we want to watch.
+     * @return The onDragDetected EventHandler.
+     */
     private EventHandler<MouseEvent> generateOnDragDetectedHandler(ListView<Module> list) {
         return event -> {
             Module selected = list.getSelectionModel().getSelectedItem();
@@ -40,13 +46,18 @@ public class ModuleSelectorController extends GridPane {
                 Dragboard db = list.startDragAndDrop(TransferMode.ANY);
                 ClipboardContent content = new ClipboardContent();
                 content.put(moduleDataFormat, list.getSelectionModel().getSelectedItem());
-                content.putString(list.getSelectionModel().getSelectedItem().toString());
                 db.setContent(content);
             }
             event.consume();
         };
     }
 
+    /**
+     * Generate the onDragOver EventHandler for a list.
+     * The handler will check if the source is not the same as this list, and accept the transfer.
+     * @param list The list that we want to watch.
+     * @return The onDragOver EventHandler.
+     */
     private EventHandler<DragEvent> generateOnDragOverHandler(ListView<Module> list) {
         return event -> {
             if ((event.getGestureSource() != list) &&
@@ -58,6 +69,13 @@ public class ModuleSelectorController extends GridPane {
         };
     }
 
+    /**
+     * Generate the onDragDropped EventHandler for a list.
+     * The handler will remove the module from the source list, and add it into the new list.
+     * It will also re-sort the list.
+     * @param list The list that we want to watch.
+     * @return The onDragDropped EventHandler.
+     */
     private EventHandler<DragEvent> generateOnDragDroppedHandler(ListView<Module> list) {
         return event -> {
             Dragboard db = event.getDragboard();
@@ -76,6 +94,9 @@ public class ModuleSelectorController extends GridPane {
         };
     }
 
+    /**
+     * Load the modules into the availableModules list.
+     */
     private void loadModules() {
         IModuleLoader moduleLoader = new MockModuleLoader();
         List<Module> modules = moduleLoader.loadModule();
@@ -84,6 +105,9 @@ public class ModuleSelectorController extends GridPane {
         }
     }
 
+    /**
+     * Attach the EventHandlers to the ListViews.
+     */
     private void attachViews() {
         takenView.setItems(takenModules);
         availableView.setItems(availableModules);
@@ -102,8 +126,7 @@ public class ModuleSelectorController extends GridPane {
         futureView.setOnDragOver(generateOnDragOverHandler(futureView));
     }
 
-
-    public ModuleSelectorController() {
+    public ModuleSelector() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/module_selector.fxml"));
         loader.setRoot(this);
         loader.setController(this);
