@@ -1,0 +1,19 @@
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ListView?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+
+<?import javafx.scene.control.Button?>
+<fx:root type="javafx.scene.layout.GridPane"
+         xmlns:fx="http://javafx.com/fxml"
+         alignment="center"
+         hgap="10"
+         vgap="10"
+        >
+    <ListView GridPane.rowIndex="0" GridPane.columnIndex="0" fx:id="takenView">
+    </ListView>
+    <ListView GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="futureView">
+    </ListView>
+    <ListView GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.rowSpan="2" fx:id="availableView">
+    </ListView>
+</fx:root>
