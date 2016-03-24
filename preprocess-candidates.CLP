@@ -1,4 +1,6 @@
-(deftemplate MODULE
+(defclass MODULE
+    (is-a USER)
+    
     (slot module-code
         (type SYMBOL))
     (slot module-name
