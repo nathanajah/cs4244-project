@@ -18,8 +18,6 @@
     (multislot semesters
         (type INTEGER))
     (multislot exam-times
-        (type SYMBOL))
-    (multislot lecture-times
         (type SYMBOL)))
 
 (deftemplate TIMETABLE_SLOT
@@ -40,6 +38,7 @@
     (slot module-code (type SYMBOL))
     (slot fulfilled-prerequisites (type SYMBOL) (default NO))
     (slot fulfilled-semester (type SYMBOL) (default NO))
+    (slot fulfilled-timetable (type SYMBOL) (default NO))
     (slot status (type SYMBOL) (default none)))
 
 (defclass SEMESTER
@@ -51,7 +50,9 @@
     (slot max-semester-number
         (type INTEGER) (default 0))
     (slot modules-chosen-count
-        (type INTEGER) (default 0)))
+        (type INTEGER) (default 0))
+    (multislot timetable
+        (type SYMBOL)))
 
 (defmessage-handler SEMESTER has-next-semester()
     (< ?self:current-semester-number ?self:max-semester-number))
@@ -63,5 +64,17 @@
 (defmessage-handler SEMESTER add-modules-chosen(?i)
     (bind ?self:modules-chosen-count (+ ?self:modules-chosen-count ?i)))
 
-(defmessage-handler SEMESTER reset-modules-chosen()
-    (bind ?self:modules-chosen-count 0))
+(defmessage-handler SEMESTER reset-semester()
+    (bind ?self:modules-chosen-count 0)
+    (bind ?self:timetable nil))
+
+(defmessage-handler SEMESTER add-to-timetable($?timings)
+    (slot-insert$ ?self timetable 1 $?timings))
+
+(defmessage-handler SEMESTER check-timetable-free($?timings)
+    (bind ?is-free TRUE)
+    (loop-for-count (?i 1 (length$ $?timings))
+        (bind ?timing (nth$ ?i $?timings))
+        (if (subsetp (create$ ?timing) $?self:timetable) then
+            (bind ?is-free FALSE)))
+    return ?is-free)

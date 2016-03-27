@@ -12,7 +12,6 @@
     ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites NO) (status candidate))
     (MODULE_PREREQUISITES (module-code ?module-code) (prerequisites $?prerequisites))
     =>
-    (printout t (length$ $?prerequisites) crlf)
     (bind ?count 0)
     (loop-for-count (?i 1 (length$ $?prerequisites))
         (bind ?prereq-module-code (nth$ ?i $?prerequisites))
@@ -22,6 +21,40 @@
                 (bind ?count (+ ?count 1))))
     (if (eq ?count (length$ $?prerequisites)) then
         (send ?module-status put-fulfilled-prerequisites YES)))
+
+; Reset timetable check everytime new module is added
+(defrule add-module-to-timetable
+    (declare (salience 20))
+    ?selected <- (add-module ?module-code $?timings)
+    ?semester <- (object (is-a SEMESTER))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code))
+    =>
+    (retract ?selected)
+    (send ?semester add-to-timetable $?timings)
+    (send ?semester add-modules-chosen 1)
+    (assert (semester-selected ?module-code))
+    (send ?module-status put-status taken)
+    (do-for-all-instances ((?module-status MODULE_STATUS))
+        (eq ?module-status:status candidate)
+        (send ?module-status put-fulfilled-timetable NO)))
+
+; Check modules that have no timetable
+(defrule check-module-no-timetable
+    (declare (salience 10))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-timetable NO) (status candidate))
+    (not (TIMETABLE_SLOT (module-code ?module-code)))
+    =>
+    (send ?module-status put-fulfilled-timetable YES))
+
+; Check module timetable
+(defrule check-module-timetable
+    (declare (salience 10))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-timetable NO) (status candidate))
+    (TIMETABLE_SLOT (module-code ?module-code) (timings $?module-timings))
+    ?semester <- (object (is-a SEMESTER))
+    (test (send ?semester check-timetable-free $?module-timings))
+    =>
+    (send ?module-status put-fulfilled-timetable YES))
 
 ; Check modules can be applied to current semester
 (defrule reset-module-semester
@@ -42,41 +75,38 @@
 (defrule select-module-longest-chain
     (declare (salience 5))
     ?semester <- (object (is-a SEMESTER) (modules-chosen-count ?count&:(< ?count 4)))
-    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites YES) (fulfilled-semester YES) (status candidate))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites YES) (fulfilled-timetable YES) (fulfilled-semester YES) (status candidate))
     ?module <- (object (is-a MODULE) (module-code ?module-code) (chain-length ?length) (is-ue NO))
-    (forall (object (is-a MODULE_STATUS) (fulfilled-prerequisites YES) (fulfilled-semester YES) (module-code ?other-module-code) (status candidate))
+    (forall (object (is-a MODULE_STATUS) (fulfilled-prerequisites YES) (fulfilled-timetable YES) (fulfilled-semester YES) (module-code ?other-module-code) (status candidate))
         (or 
             (object (is-a MODULE) (module-code ?other-module-code) (chain-length ?other-length&:(<= ?other-length ?length)) (is-ue NO))
             (object (is-a MODULE) (module-code ?other-module-code) (is-ue YES))))
+    (TIMETABLE_SLOT (module-code ?module-code) (timings $?timings))
     =>
-    (send ?semester add-modules-chosen 1)
-    (assert (semester-selected ?module-code))
-    (send ?module-status put-status taken))
+    (assert (add-module ?module-code $?timings)))
 
 ; Choose UE module until full
 (defrule select-module-ue
     (declare (salience 4))
     ?semester <- (object (is-a SEMESTER) (modules-chosen-count ?count&:(< ?count 5)))
-    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites YES) (status candidate) (fulfilled-semester YES))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites YES) (fulfilled-timetable YES) (status candidate) (fulfilled-semester YES))
     ?module <- (object (is-a MODULE) (module-code ?module-code) (is-ue YES))
     =>
-    (send ?semester add-modules-chosen 1)
-    (assert (semester-selected ?module-code))
-    (send ?module-status put-status taken))
+    (assert (add-module ?module-code)))
 
 ; Fill up remaining with non-ue modules (using chain length)
 (defrule select-module-fill-up
+    (declare (salience 3))
     ?semester <- (object (is-a SEMESTER) (modules-chosen-count ?count&:(< ?count 5)))
-    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites YES) (fulfilled-semester YES) (status candidate))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites YES) (fulfilled-timetable YES) (fulfilled-semester YES) (status candidate))
     ?module <- (object (is-a MODULE) (module-code ?module-code) (chain-length ?length) (is-ue NO))
-    (forall (object (is-a MODULE_STATUS) (fulfilled-prerequisites YES) (fulfilled-semester YES) (module-code ?other-module-code) (status candidate))
+    (forall (object (is-a MODULE_STATUS) (fulfilled-prerequisites YES) (fulfilled-timetable YES) (fulfilled-semester YES) (module-code ?other-module-code) (status candidate))
         (or 
             (object (is-a MODULE) (module-code ?other-module-code) (chain-length ?other-length&:(<= ?other-length ?length)) (is-ue NO))
             (object (is-a MODULE) (module-code ?other-module-code) (is-ue YES))))
+    (TIMETABLE_SLOT (module-code ?module-code) (timings $?timings))
     =>
-    (send ?semester add-modules-chosen 1)
-    (assert (semester-selected ?module-code))
-    (send ?module-status put-status taken))
+    (assert (add-module ?module-code $?timings)))
 
 (defrule process-current-semester
     ?semester-selected <- (semester-selected ?module-code)
@@ -91,6 +121,6 @@
     (test (send ?semester has-next-semester))
     =>
     (send ?semester add-semester 1) ; go to next semester
-    (send ?semester reset-modules-chosen)
+    (send ?semester reset-semester)
     (refresh check-module-prerequisites)
     (refresh reset-module-semester))
