@@ -1,35 +1,34 @@
-; Templates
-(deftemplate module
-    (slot status
-        (type SYMBOL)
-        (allowed-values cleared uncleared clearing) 
-        (default uncleared))
-    (slot code
+; Template used in expert system
+; NUS module template
+(deftemplate MODULE
+    (slot is-ue
+        (type SYMBOL) (default FALSE))
+    (slot module-code
         (type SYMBOL)
         (default ?NONE))
-    (slot title
-        (type STRING)
+    (slot module-name
+        (type SYMBOL)
         (default ?NONE))
-    (slot mc
+    (slot level
+        (type SYMBOL))
+    (slot module-prefix
+        (type SYMBOL))
+    (slot mcs
         (type INTEGER)
         (default 4))
-    (slot exam-schedule
+    (multislot prerequisites
         (type SYMBOL))
-    (slot chain
+    (multislot preclusions
+        (type SYMBOL))
+    ; attributes for scheduling
+    (slot chain-length
         (type INTEGER)
         (default 0))
-    (multislot prereqs
-        (type SYMBOL))
-    (multislot preclus
-        (type SYMBOL))
-    (multislot lectures
-        (type SYMBOL))
-    (multislot semesters
+    (multislot semester
         (type SYMBOL)
         (allowed-values sem1 sem2)
-        (default ?NONE)))
-
-; Facts
-(deffacts NUS-modules)
-
-; Rules
+        (default ?NONE))
+    (multislot lectures
+        (type SYMBOL))
+    (slot exam-schedule
+        (type SYMBOL)))
