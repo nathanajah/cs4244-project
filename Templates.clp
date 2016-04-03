@@ -35,6 +35,10 @@
     (slot module-code)
     (multislot preclusions (type SYMBOL)))
 
+(deftemplate MODULE_FOCUS
+    (slot module-code)
+    (slot area))
+
 (defclass MODULE_STATUS
     (is-a USER)
     (role concrete)
