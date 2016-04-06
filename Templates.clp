@@ -8,7 +8,8 @@
     (slot mcs
         (type INTEGER))
     (slot chain-length
-        (type INTEGER))
+        (type INTEGER)
+        (default 0))
     (slot level
         (type INTEGER))
     (slot module-prefix

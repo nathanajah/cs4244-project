@@ -84,6 +84,39 @@
     =>
     (send ?module-status put-fulfilled-semester YES))
 
+; Modules that must be taken together
+(defrule select-module-CS2103T
+    (declare (salience 6))
+    (semester-selected CS2103T)
+    (object (is-a MODULE_STATUS) (module-code CS2101) (status candidate))
+    (TIMETABLE_SLOT (module-code CS2101) (timings $?timings))
+    =>
+    (assert (add-module CS2101 $?timings)))
+
+(defrule select-module-CS2101
+    (declare (salience 6))
+    (semester-selected CS2101)
+    (object (is-a MODULE_STATUS) (module-code CS2103T) (status candidate))
+    (TIMETABLE_SLOT (module-code CS2103T) (timings $?timings))
+    =>
+    (assert (add-module CS2103T $?timings)))
+
+(defrule select-module-CS3201
+    (declare (salience 6))
+    (semester-selected CS3201)
+    (object (is-a MODULE_STATUS) (module-code CS3202) (status candidate))
+    (TIMETABLE_SLOT (module-code CS3201) (timings $?timings))
+    =>
+    (assert (add-module CS3202 $?timings)))
+
+(defrule select-module-CS3202
+    (declare (salience 6))
+    (semester-selected CS3202)
+    (object (is-a MODULE_STATUS) (module-code CS3201) (status candidate))
+    (TIMETABLE_SLOT (module-code CS3201) (timings $?timings))
+    =>
+    (assert (add-module CS3201 $?timings)))
+
 ; Choose modules with longest chain (not UE)
 (defrule select-module-longest-chain
     (declare (salience 5))
