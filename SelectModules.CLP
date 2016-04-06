@@ -6,21 +6,21 @@
     =>
     (send ?module-status put-fulfilled-prerequisites YES))
 
-; Check modules that have fulfilled prereqs
+; Check modules that have not fulfilled prereqs
 (defrule check-module-prerequisites
     (declare (salience 10))
-    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites NO) (status candidate))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites YES) (status candidate))
     (MODULE_PREREQUISITES (module-code ?module-code) (prerequisites $?prerequisites))
     =>
     (bind ?count 0)
     (loop-for-count (?i 1 (length$ $?prerequisites))
         (bind ?prereq-module-code (nth$ ?i $?prerequisites))
-        (if (any-instancep ((?prereq MODULE_STATUS)) 
-            (and (eq ?prereq:module-code ?prereq-module-code) 
-            (eq ?prereq:status taken))) then 
+        (if (any-instancep ((?prereq MODULE_STATUS))
+            (and (eq ?prereq:module-code ?prereq-module-code)
+            (eq ?prereq:status taken))) then
                 (bind ?count (+ ?count 1))))
-    (if (eq ?count (length$ $?prerequisites)) then
-        (send ?module-status put-fulfilled-prerequisites YES)))
+    (if (eq ?count 0) then
+        (send ?module-status put-fulfilled-prerequisites NO)))
 
 ; Reset timetable and examtime check everytime new module is added
 (defrule add-module-to-timetable
@@ -91,7 +91,7 @@
     ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites YES) (fulfilled-timetable YES) (fulfilled-semester YES) (fulfilled-exam-time YES) (status candidate))
     ?module <- (object (is-a MODULE) (module-code ?module-code) (chain-length ?length) (is-ue NO))
     (forall (object (is-a MODULE_STATUS) (fulfilled-prerequisites YES) (fulfilled-timetable YES) (fulfilled-semester YES) (fulfilled-exam-time YES) (module-code ?other-module-code) (status candidate))
-        (or 
+        (or
             (object (is-a MODULE) (module-code ?other-module-code) (chain-length ?other-length&:(<= ?other-length ?length)) (is-ue NO))
             (object (is-a MODULE) (module-code ?other-module-code) (is-ue YES))))
     (TIMETABLE_SLOT (module-code ?module-code) (timings $?timings))
@@ -114,7 +114,7 @@
     ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites YES) (fulfilled-timetable YES) (fulfilled-semester YES) (fulfilled-exam-time YES) (status candidate))
     ?module <- (object (is-a MODULE) (module-code ?module-code) (chain-length ?length) (is-ue NO))
     (forall (object (is-a MODULE_STATUS) (fulfilled-prerequisites YES) (fulfilled-timetable YES) (fulfilled-semester YES) (fulfilled-exam-time YES) (module-code ?other-module-code) (status candidate))
-        (or 
+        (or
             (object (is-a MODULE) (module-code ?other-module-code) (chain-length ?other-length&:(<= ?other-length ?length)) (is-ue NO))
             (object (is-a MODULE) (module-code ?other-module-code) (is-ue YES))))
     (TIMETABLE_SLOT (module-code ?module-code) (timings $?timings))
@@ -135,5 +135,9 @@
     =>
     (send ?semester add-semester 1) ; go to next semester
     (send ?semester reset-semester)
+    ; Set all prerequisites to be fulfilled
+    (do-for-all-instances ((?module-status MODULE_STATUS))
+        (eq ?module-status:status candidate)
+        (send ?module-status put-fulfilled-prerequisites YES))
     (refresh check-module-prerequisites)
     (refresh reset-module-semester))
