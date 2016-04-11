@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/projects/cs4244-project/gui/ModulePlan/ModulePlan.iml" filepath="$USER_HOME$/projects/cs4244-project/gui/ModulePlan/ModulePlan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ModulePlan.iml" filepath="$PROJECT_DIR$/ModulePlan.iml" />
     </modules>
   </component>
 </project>

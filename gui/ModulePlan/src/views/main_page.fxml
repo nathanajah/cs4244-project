@@ -1,10 +1,10 @@
 <?import javafx.scene.layout.*?>
 <?import controllers.InputPage?>
-<fx:root type="javafx.scene.layout.GridPane"
+<?import controllers.ResultPage?>
+<fx:root type="javafx.scene.layout.StackPane"
          xmlns:fx="http://javafx.com/fxml"
          alignment="center"
-         hgap="10"
-         vgap="10"
 >
-    <InputPage GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="inputPage" onAnalyze="#analyze"></InputPage>
+    <ResultPage fx:id="resultPage" visible="false" onBack="#backFromResult"></ResultPage>
+    <InputPage fx:id="inputPage" onAnalyze="#analyze" visible="true"></InputPage>
 </fx:root>

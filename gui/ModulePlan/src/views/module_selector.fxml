@@ -1,15 +1,26 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
 <fx:root type="javafx.scene.layout.GridPane"
          xmlns:fx="http://javafx.com/fxml"
          alignment="center"
          hgap="10"
          vgap="10"
         >
-    <ListView GridPane.rowIndex="0" GridPane.columnIndex="0" fx:id="takenView">
-    </ListView>
-    <ListView GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="futureView">
-    </ListView>
-    <ListView GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.rowSpan="2" fx:id="availableView">
-    </ListView>
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0">
+        <Label text="Modules taken:"></Label>
+        <ListView fx:id="takenView">
+        </ListView>
+    </VBox>
+    <VBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+        <Label text="Modules that you want to take:"></Label>
+        <ListView fx:id="futureView">
+        </ListView>
+    </VBox>
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.rowSpan="2">
+        <Label text="Modules available:"></Label>
+        <ListView fx:id="availableView">
+        </ListView>
+    </VBox>
 </fx:root>

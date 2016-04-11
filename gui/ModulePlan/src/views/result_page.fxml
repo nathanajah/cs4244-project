@@ -1,0 +1,18 @@
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.control.TreeItem?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<fx:root type="javafx.scene.layout.GridPane"
+         xmlns:fx="http://javafx.com/fxml"
+         alignment="center"
+         hgap="10"
+         vgap="10"
+>
+    <TreeView GridPane.rowIndex="0" GridPane.columnIndex="0" showRoot="false">
+        <TreeItem fx:id="root">
+        </TreeItem>
+    </TreeView>
+    <Button GridPane.rowIndex="1" GridPane.columnIndex="0" text="Back" onAction="#back">
+    </Button>
+</fx:root>

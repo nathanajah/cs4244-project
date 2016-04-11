@@ -1,9 +1,10 @@
 package controllers;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import models.Module;
 import util.IAnalyzer;
 import util.MockAnalyzer;
@@ -15,9 +16,12 @@ import java.util.Map;
 /**
  * Created by nathanajah on 3/17/16.
  */
-public class MainPage extends GridPane {
+public class MainPage extends StackPane {
     @FXML
     private InputPage inputPage;
+
+    @FXML
+    private ResultPage resultPage;
 
     private IAnalyzer analyzer;
 
@@ -29,8 +33,18 @@ public class MainPage extends GridPane {
     public void analyze(ActionEvent event) {
         List<Module> takenModules = inputPage.getTakenModules();
         List<Module> futureModules = inputPage.getFutureModules();
+        int semesters = inputPage.getSemesters();
 
-        Map<Module, Integer> semesterMappings = analyzer.analyze(takenModules, futureModules);
+        Map<Module, Integer> semesterMappings = analyzer.analyze(takenModules, futureModules, semesters);
+        resultPage.setSemesterMapping(FXCollections.observableMap(semesterMappings));
+        inputPage.setVisible(false);
+        resultPage.setVisible(true);
+    }
+
+    @FXML
+    public void backFromResult(ActionEvent event) {
+        inputPage.setVisible(true);
+        resultPage.setVisible(false);
     }
 
     public MainPage() {

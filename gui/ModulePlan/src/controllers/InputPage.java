@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import models.Module;
 
@@ -18,6 +19,9 @@ import java.util.List;
 public class InputPage extends GridPane {
     @FXML
     private ModuleSelector moduleSelector;
+
+    @FXML
+    private TextField semesters;
 
     /**
      * onAction handler for the analyze button.
@@ -52,6 +56,14 @@ public class InputPage extends GridPane {
      */
     public List<Module> getTakenModules() {
         return moduleSelector.getTakenModules();
+    }
+
+    /**
+     * Return the number of semesters left.
+     * @return The number of semesters left.
+     */
+    public int getSemesters() {
+        return Integer.parseInt(semesters.getText());
     }
 
     public InputPage() {
