@@ -65,6 +65,10 @@
     (multislot exam-times
         (type SYMBOL)))
 
+(deftemplate MODULE_SELECTED
+    (slot semester (type INTEGER))
+    (slot module-code (type SYMBOL)))
+
 (defmessage-handler SEMESTER has-next-semester()
     (< ?self:current-semester-number ?self:max-semester-number))
 
