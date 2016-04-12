@@ -237,7 +237,7 @@ def writeCLIPSFile():
 			clpFile.write(" " + str(sem))
 		clpFile.write("))\n")
 
-		clpFile.write("\t(make-instance of MODULE_STATUS (module-code " + str(mod) + ") (status candidate))\n")
+		# clpFile.write("\t(make-instance of MODULE_STATUS (module-code " + str(mod) + ") (status candidate))\n")
 
 		if len(prerequisites[mod]) > 0:
 			clpFile.write("\t(assert (MODULE_PREREQUISITES (module-code " + str(mod) + ") (prerequisites")
@@ -253,6 +253,8 @@ def writeCLIPSFile():
 			for timing in timetables[mod]:
 				clpFile.write(" " + str(timing))
 			clpFile.write(")))\n")
+		else:
+			clpFile.write("\t(assert (TIMETABLE_SLOT (module-code " +str(mod) + ") (timings nil)))\n")
 
 		clpFile.write("\n")
 	clpFile.write(")\n\n (defglobal ?*current-semester* = (make-instance [sem] of SEMESTER (max-semester-number 3)))") 
