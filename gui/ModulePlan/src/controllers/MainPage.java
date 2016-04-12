@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.StackPane;
 import models.Module;
+import util.Analyzer;
 import util.IAnalyzer;
 import util.MockAnalyzer;
 
@@ -52,7 +53,7 @@ public class MainPage extends StackPane {
         loader.setRoot(this);
         loader.setController(this);
 
-        analyzer = new MockAnalyzer();
+        analyzer = new Analyzer();
         try {
             loader.load();
         } catch (IOException exception) {

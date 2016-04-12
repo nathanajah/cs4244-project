@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import models.Module;
 import util.IModuleLoader;
 import util.MockModuleLoader;
+import util.ModuleLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class ModuleSelector extends GridPane {
      * Load the modules into the availableModules list.
      */
     private void loadModules() {
-        IModuleLoader moduleLoader = new MockModuleLoader();
+        IModuleLoader moduleLoader = new ModuleLoader();
         List<Module> modules = moduleLoader.loadModule();
         for (Module module : modules) {
             moduleList.add(module);
