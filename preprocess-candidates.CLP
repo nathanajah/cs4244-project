@@ -415,3 +415,6 @@
             (printout t (str-cat ?module-code " failed prerequisites check") crlf)
             (assert (error (str-cat ?module-code " failed prerequisites check")))
         ))
+
+; TODO
+; CHECK NUMBER OF MCS

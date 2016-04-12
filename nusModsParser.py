@@ -232,7 +232,7 @@ def writeCLIPSFile():
 	clpFile = open("intializeModules.clp", "wb")
 	clpFile.write("(defrule initialize-modules\n\t(declare (salience 10000))\n\t=>\n")
 	for mod in modules:
-		clpFile.write("\t(make-instance [" + str(mod) + "] of MODULE (module-code " + str(mod) + ") (chain-length " + str(chainLengths[mod]) + ") (semesters")
+		clpFile.write("\t(make-instance [" + str(mod) + "] of MODULE (module-code " + str(mod) + ") (is-ue NO) (chain-length " + str(chainLengths[mod]) + ") (semesters")
 		for sem in semesters[mod]:
 			clpFile.write(" " + str(sem))
 		clpFile.write("))\n")
