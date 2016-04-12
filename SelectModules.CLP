@@ -121,7 +121,7 @@
     (declare (salience 6))
     (semester-selected CS3281)
     (object (is-a MODULE_STATUS) (module-code CS3282) (status candidate))
-    (TIME_TABLE_SLOT (module-code CS3282) (timings $?timings))
+    (TIMETABLE_SLOT (module-code CS3282) (timings $?timings))
     =>
     (assert (add-module CS3282 $?timings)))
 
@@ -129,7 +129,7 @@
     (declare (salience 6))
     (semester-selected CS3282)
     (object (is-a MODULE_STATUS) (module-code CS3281) (status candidate))
-    (TIME_TABLE_SLOT (module-code CS3281) (timings $?timings))
+    (TIMETABLE_SLOT (module-code CS3281) (timings $?timings))
     =>
     (assert (add-module CS3281 $?timings)))
 
