@@ -78,8 +78,8 @@
 
 (defrule check-module-semester
     (declare (salience 10))
-    (object (is-a SEMESTER) (semester ?semester))
     ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (status candidate))
+    (object (is-a SEMESTER) (semester ?semester))
     (object (is-a MODULE) (module-code ?module-code) (semesters $? ?semester $?))
     =>
     (send ?module-status put-fulfilled-semester YES))
@@ -116,6 +116,22 @@
     (TIMETABLE_SLOT (module-code CS3201) (timings $?timings))
     =>
     (assert (add-module CS3201 $?timings)))
+
+(defrule select-module-CS3281
+    (declare (salience 6))
+    (semester-selected CS3281)
+    (object (is-a MODULE_STATUS) (module-code CS3282) (status candidate))
+    (TIME_TABLE_SLOT (module-code CS3282) (timings $?timings))
+    =>
+    (assert (add-module CS3282 $?timings)))
+
+(defrule select-module-CS3282
+    (declare (salience 6))
+    (semester-selected CS3282)
+    (object (is-a MODULE_STATUS) (module-code CS3281) (status candidate))
+    (TIME_TABLE_SLOT (module-code CS3281) (timings $?timings))
+    =>
+    (assert (add-module CS3281 $?timings)))
 
 ; Choose modules with longest chain (not UE)
 (defrule select-module-longest-chain
