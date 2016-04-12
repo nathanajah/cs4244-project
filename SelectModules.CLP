@@ -159,7 +159,7 @@
     ?semester <- (object (is-a SEMESTER))
     =>
     (retract ?semester-selected)
-    (assert (module-selected (send ?semester get-current-semester-number) ?module-code)))
+    (assert (MODULE_SELECTED (semester (send ?semester get-current-semester-number)) (module-code ?module-code))))
 
 (defrule next-semester
     ?semester <- (object (is-a SEMESTER))
