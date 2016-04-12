@@ -86,7 +86,8 @@
     (bind ?self:exam-times nil))
 
 (defmessage-handler SEMESTER add-to-timetable($?timings)
-    (slot-insert$ ?self timetable 1 $?timings))
+    (if (not (eq $?timings nil)) then
+        (slot-insert$ ?self timetable 1 $?timings)))
 
 (defmessage-handler SEMESTER add-to-exam-times(?timing)
     (if (not (eq ?timing nil)) then
@@ -97,11 +98,14 @@
     (loop-for-count (?i 1 (length$ $?timings))
         (bind ?timing (nth$ ?i $?timings))
         (if (subsetp (create$ ?timing) $?self:timetable) then
-            (bind ?is-free FALSE)))
+            (bind ?is-free FALSE))
+        (if (eq ?timing nil) then (bind ?is-free TRUE)))
+    (printout t ?is-free)
     return ?is-free)
 
 (defmessage-handler SEMESTER check-exam-times-free(?timing)
     (bind ?is-free TRUE)
     (if (subsetp (create$ ?timing) $?self:exam-times) then
         (bind ?is-free FALSE))
+    (if (eq ?timing nil) then (bind ?is-free TRUE))
     return ?is-free)

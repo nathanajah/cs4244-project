@@ -41,14 +41,6 @@
         (send ?module-status put-fulfilled-timetable NO)
         (send ?module-status put-fulfilled-exam-time NO)))
 
-; Check modules that have no timetable
-(defrule check-module-no-timetable
-    (declare (salience 10))
-    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-timetable NO) (status candidate))
-    (not (TIMETABLE_SLOT (module-code ?module-code)))
-    =>
-    (send ?module-status put-fulfilled-timetable YES))
-
 ; Check module timetable
 (defrule check-module-timetable
     (declare (salience 10))
