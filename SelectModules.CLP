@@ -26,8 +26,8 @@
 (defrule add-module-to-timetable
     (declare (salience 20))
     ?selected <- (add-module ?module-code $?timings)
-    ?semester <- (object (is-a SEMESTER) (current-semester-number ?current-semester-number))
-    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (status candidate))
+    ?semester <- (object (is-a SEMESTER) (semester ?current-semester-number))
     (EXAM_TIME_SLOT (module-code ?module-code) (semester ?current-semester-number) (exam-time ?exam-time))
     =>
     (retract ?selected)
@@ -53,8 +53,8 @@
 (defrule check-module-timetable
     (declare (salience 10))
     ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-timetable NO) (status candidate))
-    (TIMETABLE_SLOT (module-code ?module-code) (timings $?module-timings))
     ?semester <- (object (is-a SEMESTER))
+    (TIMETABLE_SLOT (module-code ?module-code) (timings $?module-timings))
     (test (send ?semester check-timetable-free $?module-timings))
     =>
     (send ?module-status put-fulfilled-timetable YES))
@@ -63,7 +63,7 @@
 (defrule check-module-exam-time
     (declare (salience 10))
     ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-exam-time NO) (status candidate))
-    ?semester <- (object (is-a SEMESTER) (current-semester-number ?current-semester-number))
+    ?semester <- (object (is-a SEMESTER) (semester ?current-semester-number))
     (EXAM_TIME_SLOT (module-code ?module-code) (semester ?current-semester-number) (exam-time ?exam-time))
     (test (send ?semester check-exam-times-free ?exam-time))
     =>

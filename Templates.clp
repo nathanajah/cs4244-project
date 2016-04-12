@@ -21,6 +21,7 @@
 
 (deftemplate TIMETABLE_SLOT
     (slot module-code (type SYMBOL))
+    (slot semester (type INTEGER))
     (multislot timings (type SYMBOL)))
 
 (deftemplate EXAM_TIME_SLOT
@@ -81,7 +82,8 @@
 
 (defmessage-handler SEMESTER reset-semester()
     (bind ?self:modules-chosen-count 0)
-    (bind ?self:timetable nil))
+    (bind ?self:timetable nil)
+    (bind ?self:exam-times nil))
 
 (defmessage-handler SEMESTER add-to-timetable($?timings)
     (slot-insert$ ?self timetable 1 $?timings))
