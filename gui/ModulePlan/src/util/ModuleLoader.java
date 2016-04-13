@@ -13,7 +13,7 @@ public class ModuleLoader implements IModuleLoader{
     @Override
     public List<Module> loadModule() {
         Environment env = new Environment();
-        env.load("../../Templates.clp");
+        env.load("../../templates.clp");
         env.load("../../intializeModules.clp");
         env.run();
         List<Module> modules = new ArrayList<Module>();
