@@ -59,6 +59,7 @@
     (foundation CS1231)
     (foundation CS2100)
     (foundation CS2103T)
+    (foundation CS2101)
     (foundation CS2105)
     (foundation CS2106)
     (foundation CS3230)
