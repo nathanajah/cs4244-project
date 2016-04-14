@@ -2,6 +2,10 @@ import json
 import pprint
 
 modules = []
+names = {}
+MCs = {}
+levels = {}
+prefix = {}
 prerequisites = {}
 preclusions = {}
 chainLengths = {}
@@ -61,13 +65,28 @@ def isScienceModule(moduleCode):
 	return False
 
 def isRelevantModule(mod):
-	if mod['Department'] == 'Computer Science':
+	if mod['Department'] == 'Computer Science' or mod['Department'] == 'Dean\'s Office (School Of Computing)':
 		return True
 
 	if isScienceModule(mod['ModuleCode']):
 		return True
 
 	return False
+
+def parseModuleCode(moduleCode):
+	flag = True
+	i = 0
+	while flag and i < len(moduleCode):
+		if moduleCode[i].isnumeric():
+			flag = False
+		else:
+			i+=1
+
+	prefix = moduleCode[:i]
+	level = moduleCode[i]
+
+	return (level, prefix)
+
 
 def parsePrerequisites(prerequisites):
 	global modules
@@ -126,13 +145,26 @@ def parseHistory(history):
 
 def parseModule(mod):
 	global prerequisites
+	global names
+	global MCs
+	global level
+	global prefix
 	global semesters
 	global examDates
+
+	# module code and name
 	moduleCode = mod['ModuleCode']
+	names[moduleCode] = mod["ModuleTitle"]
+	MCs[moduleCode] = mod["ModuleCredit"]
+	###
+
+	# module level and prefix
+	levels[moduleCode], prefix[moduleCode] = parseModuleCode(moduleCode)
+	###
 
 	# prerequisites
 	try:
-		prerequisites[moduleCode] = parsePreclusions(mod['Prerequisite'])
+		prerequisites[moduleCode] = parsePrerequisites(mod['Prerequisite'])
 	except (KeyError, UnicodeEncodeError):
 		prerequisites[moduleCode] = []
 	###
@@ -232,7 +264,8 @@ def writeCLIPSFile():
 	clpFile = open("intializeModules.clp", "wb")
 	clpFile.write("(defrule initialize-modules\n\t(declare (salience 10000))\n\t=>\n")
 	for mod in modules:
-		clpFile.write("\t(make-instance [" + str(mod) + "] of MODULE (module-code " + str(mod) + ") (is-ue NO) (chain-length " + str(chainLengths[mod]) + ") (semesters")
+		clpFile.write("\t(make-instance [" + str(mod) + "] of MODULE (module-code " + str(mod) + ") (module-name " + str(names[mod]) 
+			+ ") (mcs " + str(MCs[mod]) + ") (level " + str(levels[mod]) + ") (module-prefix " + str(prefix[mod]) + ") (is-ue NO) (chain-length " + str(chainLengths[mod]) + ") (semesters")
 		for sem in semesters[mod]:
 			clpFile.write(" " + str(sem))
 		clpFile.write("))\n")
@@ -243,6 +276,12 @@ def writeCLIPSFile():
 			clpFile.write("\t(assert (MODULE_PREREQUISITES (module-code " + str(mod) + ") (prerequisites")
 			for prereq in prerequisites[mod]:
 				clpFile.write(" " + str(prereq))
+			clpFile.write(")))\n")
+
+		if len(preclusions[mod]) > 0:
+			clpFile.write("\t(assert (MODULE_PRECLUSIONS (module-code " + str(mod) + ") (preclusions")
+			for preclude in preclusions[mod]:
+				clpFile.write(" " + str(preclude))
 			clpFile.write(")))\n")
 
 		for i in range(0, len(semesters[mod])):
