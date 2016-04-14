@@ -185,7 +185,7 @@
             ))
     =>
     (printout t "Missing CS1010 or CS1101S" crlf)
-    (assert (error "Missing CS1010 or CS1101S")))
+    (assert (ERROR (message "Missing CS1010 or CS1101S"))))
 
 (defrule foundation-check-CS2010
     (not
@@ -197,7 +197,7 @@
                 )))
     =>
     (printout t "Missing (CS1020 and CS2010) or CS2020" crlf)
-    (assert (error "Missing (CS1020 and CS2010) or CS2020")))
+    (assert (ERROR (message "Missing (CS1020 and CS2010) or CS2020"))))
 
 (defrule foundation-check-physics
     (not
@@ -207,7 +207,7 @@
             ))
     =>
     (printout t "Missing PC1221 or PC1222" crlf)
-    (assert (error "Missing PC1221 or PC1222")))
+    (assert (ERROR (message "Missing PC1221 or PC1222"))))
 
 (defrule foundation-check-statistics
     (not 
@@ -219,7 +219,7 @@
                 )))
     =>
     (printout t "Missing ST2334 or (ST2131 and ST2132)" crlf)
-    (assert (error "Missing ST2334 or (ST2131 and ST2132)")))
+    (assert (ERROR (message "Missing ST2334 or (ST2131 and ST2132)"))))
 
 (defrule foundation-check-science
     (not
@@ -229,7 +229,7 @@
             ))
     =>
     (printout t "Missing Science module" crlf)
-    (assert (error "Missing Science module")))
+    (assert (ERROR (message "Missing Science module"))))
 
 (defrule foundation-check-science-1A
     (not (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken)))
@@ -243,7 +243,7 @@
             ))
     =>
     (printout t "Missing 1A Science module" crlf)
-    (assert (error "Missing 1A Science module")))
+    (assert (ERROR (message "Missing 1A Science module"))))
 
 (defrule foundation-check-science-1B
     (not (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken)))
@@ -257,7 +257,7 @@
             ))
     =>
     (printout t "Missing 1B Science module" crlf)
-    (assert (error "Missing 1B Science module")))
+    (assert (ERROR (message "Missing 1B Science module"))))
 
 (defrule foundation-check-science-1C
     (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken))
@@ -271,7 +271,7 @@
             ))
     =>
     (printout t "Missing 1C Science module" crlf)
-    (assert (error "Missing 1C Science module")))
+    (assert (ERROR (message "Missing 1C Science module"))))
 
 (defrule foundation-check-science-2A
     (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken))
@@ -288,7 +288,7 @@
 
     =>
     (printout t "Missing 2A Science module" crlf)
-    (assert (error "Missing 2A Science module")))
+    (assert (ERROR (message "Missing 2A Science module"))))
 
 (defrule foundation-check-science-2B
     (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken))
@@ -304,7 +304,7 @@
             ))
     =>
     (printout t "Missing 2B Science module" crlf)
-    (assert (error "Missing 2B Science module")))
+    (assert (ERROR (message "Missing 2B Science module"))))
 
 ; Check focus area
 (defrule focus-area-check
@@ -319,7 +319,7 @@
             (object (is-a MODULE) (module-code ?module-code-1|?module-code-2|?module-code-3) (level ?level&:(>= ?level 4)))))
     =>
     (printout t "Missing Focus Area" crlf)
-    (assert (error "Missing Focus Area")))
+    (assert (ERROR (message "Missing Focus Area"))))
 
 ; Team project modules
 (defrule team-project-check
@@ -340,7 +340,7 @@
             ))
     =>
     (printout t "Missing Team Project" crlf)
-    (assert (error "Missing Team Project")))
+    (assert (ERROR (message "Missing Team Project"))))
 
 ; Industry experience requirement
 (defrule industry-experience-check
@@ -356,7 +356,7 @@
     ; CP3200 and an Industry Course e.g. CP3101A
     =>
     (printout t "Missing Industry Experience" crlf)
-    (assert (error "Missing Industry Experience")))
+    (assert (ERROR (message "Missing Industry Experience"))))
 
 ; 12 MCS level 4k and above
 (defrule level-4000-check
@@ -371,7 +371,7 @@
             ))
     =>
     (printout t "Missing level-4000 CS modules" crlf)
-    (assert (error "Missing level-4000 CS modules")))
+    (assert (ERROR (message "Missing level-4000 CS modules"))))
 
 ; Preclusions check
 (defrule preclusions-check
@@ -386,10 +386,12 @@
                 (or
                     (eq ?preclu:status taken)
                     (eq ?preclu:status candidate)
-                    )))
+                )
+                (neq ?preclu-module-code ?module-code)
+                ))
             then 
                 (printout t (str-cat ?module-code " failed preclusion check") crlf)
-                (assert (error (str-cat ?module-code " failed preclusion check")))
+                (assert (ERROR (message (str-cat ?module-code " failed preclusion check"))))
                 (break)
                 )))
 
@@ -414,7 +416,7 @@
     (if (eq ?count 0)
         then
             (printout t (str-cat ?module-code " failed prerequisites check") crlf)
-            (assert (error (str-cat ?module-code " failed prerequisites check")))
+            (assert (ERROR (message (str-cat ?module-code " failed prerequisites check"))))
         ))
 
 ; TODO

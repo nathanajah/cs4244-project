@@ -2,6 +2,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
+<?import com.sun.javafx.scene.control.skin.InputField?>
+<?import javafx.scene.control.TextField?>
 <fx:root type="javafx.scene.layout.HBox"
          xmlns:fx="http://javafx.com/fxml"
          alignment="center"
@@ -19,9 +21,10 @@
             </ListView>
         </VBox>
     </VBox>
-    <VBox HBox.hgrow="ALWAYS">
+    <VBox HBox.hgrow="ALWAYS" spacing="5">
         <Label text="Modules available:"></Label>
         <ListView fx:id="availableView" VBox.vgrow="ALWAYS">
         </ListView>
+        <TextField promptText="Search..."></TextField>
     </VBox>
 </fx:root>

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -24,8 +25,15 @@ public class InputPage extends VBox {
     @FXML
     private TextField semesters;
 
+    @FXML
+    private Label errorLabel;
+
+    @FXML
+    private VBox errorVBox;
+
     /**
      * onAction handler for the analyze button.
+     *
      * @param event The ActionEvent from the button click.
      */
     @FXML
@@ -36,6 +44,7 @@ public class InputPage extends VBox {
     /**
      * onAction handler for the Reset button.
      * Resets the moduleSelector.
+     *
      * @param event The ActionEvent from the button click.
      */
     @FXML
@@ -45,6 +54,7 @@ public class InputPage extends VBox {
 
     /**
      * Return the modules that the student wants to take.
+     *
      * @return The modules that the student wants to take.
      */
     public List<Module> getFutureModules() {
@@ -53,6 +63,7 @@ public class InputPage extends VBox {
 
     /**
      * Return the modules that the student has taken.
+     *
      * @return The modules that the student has taken.
      */
     public List<Module> getTakenModules() {
@@ -61,6 +72,7 @@ public class InputPage extends VBox {
 
     /**
      * Return the number of semesters left.
+     *
      * @return The number of semesters left.
      */
     public int getSemesters() {
@@ -76,6 +88,20 @@ public class InputPage extends VBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    public void setError(String[] messages) {
+        errorVBox.setVisible(true);
+        StringBuilder x = new StringBuilder();
+        for (String message : messages) {
+            x.append(message);
+            x.append("\n");
+        }
+        errorLabel.setText(x.toString());
+    }
+
+    public void clearError() {
+        errorVBox.setVisible(false);
     }
 
     private ObjectProperty<EventHandler<ActionEvent>> propertyOnAnalyze = new SimpleObjectProperty<>();

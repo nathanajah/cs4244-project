@@ -9,6 +9,7 @@ import models.Module;
 import util.Analyzer;
 import util.IAnalyzer;
 import util.MockAnalyzer;
+import util.PreprocessException;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,10 +37,16 @@ public class MainPage extends StackPane {
         List<Module> futureModules = inputPage.getFutureModules();
         int semesters = inputPage.getSemesters();
 
-        Map<Module, Integer> semesterMappings = analyzer.analyze(takenModules, futureModules, semesters);
-        resultPage.setSemesterMapping(FXCollections.observableMap(semesterMappings));
-        inputPage.setVisible(false);
-        resultPage.setVisible(true);
+        try {
+            Map<Module, Integer> semesterMappings = analyzer.analyze(takenModules, futureModules, semesters);
+            resultPage.setSemesterMapping(FXCollections.observableMap(semesterMappings));
+            inputPage.clearError();
+            inputPage.setVisible(false);
+            resultPage.setVisible(true);
+        } catch (PreprocessException e) {
+            String[] messages = e.getMessages();
+            inputPage.setError(messages);
+        }
     }
 
     @FXML

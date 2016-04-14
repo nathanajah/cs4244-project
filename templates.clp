@@ -41,6 +41,9 @@
     (slot module-code)
     (slot area))
 
+(deftemplate ERROR
+    (slot message))
+
 (defclass MODULE_STATUS
     (is-a USER)
     (role concrete)
