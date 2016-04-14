@@ -45,6 +45,7 @@
     (is-a USER)
     (role concrete)
     (slot module-code (type SYMBOL))
+    (slot fixed-semester (type INTEGER) (default 0))
     (slot fulfilled-prerequisites (type SYMBOL) (default NO))
     (slot fulfilled-semester (type SYMBOL) (default NO))
     (slot fulfilled-timetable (type SYMBOL) (default NO))
@@ -100,7 +101,6 @@
         (if (subsetp (create$ ?timing) $?self:timetable) then
             (bind ?is-free FALSE))
         (if (eq ?timing nil) then (bind ?is-free TRUE)))
-    (printout t ?is-free)
     return ?is-free)
 
 (defmessage-handler SEMESTER check-exam-times-free(?timing)

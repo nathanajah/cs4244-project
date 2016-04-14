@@ -76,6 +76,17 @@
     =>
     (send ?module-status put-fulfilled-semester YES))
 
+; Check module fixed semester
+(defrule check-module-fixed-semester
+    (declare (salience 9))
+    ?semester <- (object (is-a SEMESTER) (current-semester-number ?current-semester-number))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (status candidate) (fixed-semester ?fixed-semester))
+    (test (and 
+        (not (eq ?current-semester-number ?fixed-semester))
+        (not (eq ?fixed-semester 0))))
+    => 
+    (send ?module-status put-fulfilled-semester NO))
+
 ; Modules that must be taken together
 (defrule select-module-CS2103T
     (declare (salience 6))
@@ -125,6 +136,15 @@
     =>
     (assert (add-module CS3281 $?timings)))
 
+; Choose module that is fixed at semester
+(defrule select-fixed-semester-module
+    (declare (salience 5))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (fulfilled-prerequisites YES) (fulfilled-timetable YES) (fulfilled-semester YES) (fulfilled-exam-time YES) (status candidate) (fixed-semester ?current-semester-number))
+    (object (is-a SEMESTER) (current-semester-number ?current-semester-number))
+    (TIMETABLE_SLOT (module-code ?module-code) (timings $?timings))
+    =>
+    (assert (add-module ?module-code $?timings)))
+
 ; Choose modules with longest chain (not UE)
 (defrule select-module-longest-chain
     (declare (salience 5))
@@ -161,6 +181,17 @@
     (TIMETABLE_SLOT (module-code ?module-code) (timings $?timings))
     =>
     (assert (add-module ?module-code $?timings)))
+
+(defrule fixed-semester-error
+    (declare (salience 1))
+    ?semester <- (object (is-a SEMESTER) (current-semester-number ?current-semester-number))
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (status candidate) (fixed-semester ?current-semester-number))
+    (not (semester-selected ?module-code))
+    =>
+    (bind ?error (str-cat "Cannot fix " ?module-code " at semester " ?current-semester-number ": "))
+    (if (eq (send ?module-status get-fulfilled-semester) NO) then (assert (error (str-cat ?error "not available in semester"))))
+    (if (eq (send ?module-status get-fulfilled-prerequisites) NO) then (assert (error (str-cat ?error "not available in semester"))))
+    )
 
 (defrule process-current-semester
     ?semester-selected <- (semester-selected ?module-code)

@@ -949,4 +949,4 @@
 	(assert (TIMETABLE_SLOT (module-code UE10) (timings nil)))
 )
 
- (defglobal ?*current-semester* = (make-instance [sem] of SEMESTER (max-semester-number 3)))
+ (defglobal ?*current-semester* = (make-instance [sem] of SEMESTER (max-semester-number 4)))
