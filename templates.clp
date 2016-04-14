@@ -4,7 +4,7 @@
     (slot module-code
         (type SYMBOL))
     (slot module-name
-        (type SYMBOL))
+        (type STRING))
     (slot mcs
         (type INTEGER))
     (slot chain-length
@@ -48,6 +48,7 @@
     (is-a USER)
     (role concrete)
     (slot module-code (type SYMBOL))
+    (slot fixed-semester (type INTEGER) (default 0))
     (slot fulfilled-prerequisites (type SYMBOL) (default NO))
     (slot fulfilled-semester (type SYMBOL) (default NO))
     (slot fulfilled-timetable (type SYMBOL) (default NO))
@@ -62,7 +63,9 @@
         (type INTEGER) (default 1))
     (slot max-semester-number
         (type INTEGER) (default 0))
-    (slot modules-chosen-count
+    (slot total-mc-count
+        (type INTEGER) (default 0))
+    (slot current-mc-count
         (type INTEGER) (default 0))
     (multislot timetable
         (type SYMBOL))
@@ -80,11 +83,8 @@
     (bind ?self:current-semester-number (+ ?self:current-semester-number ?i))
     (bind ?self:semester (+ (mod ?self:semester 2) 1)))
 
-(defmessage-handler SEMESTER add-modules-chosen(?i)
-    (bind ?self:modules-chosen-count (+ ?self:modules-chosen-count ?i)))
-
 (defmessage-handler SEMESTER reset-semester()
-    (bind ?self:modules-chosen-count 0)
+    (bind ?self:current-mc-count 0)
     (bind ?self:timetable nil)
     (bind ?self:exam-times nil))
 
@@ -103,7 +103,6 @@
         (if (subsetp (create$ ?timing) $?self:timetable) then
             (bind ?is-free FALSE))
         (if (eq ?timing nil) then (bind ?is-free TRUE)))
-    (printout t ?is-free)
     return ?is-free)
 
 (defmessage-handler SEMESTER check-exam-times-free(?timing)
@@ -112,3 +111,10 @@
         (bind ?is-free FALSE))
     (if (eq ?timing nil) then (bind ?is-free TRUE))
     return ?is-free)
+
+(defmessage-handler SEMESTER add-current-mcs(?mcs)
+    (bind ?self:current-mc-count (+ ?self:current-mc-count ?mcs)))
+
+
+(defmessage-handler SEMESTER add-total-mcs(?mcs)
+    (bind ?self:total-mc-count (+ ?self:total-mc-count ?mcs)))

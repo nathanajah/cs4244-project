@@ -169,6 +169,12 @@
     =>
     (send ?module-status put-status candidate))
 
+(defrule foundation-add
+    (foundation ?module-code)
+    (not (object (is-a MODULE_STATUS) (module-code ?module-code) (status candidate|taken)))
+    =>
+    (make-instance of MODULE_STATUS (module-code ?module-code) (status candidate)))
+
 
 ; Check foundation modules with alternatives
 ; If the modules are not taken and intended to be taken then prompt as candidate modules
