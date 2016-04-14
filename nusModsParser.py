@@ -1,5 +1,6 @@
 import json
 import pprint
+import re
 
 modules = []
 names = {}
@@ -65,7 +66,7 @@ def isScienceModule(moduleCode):
 	return False
 
 def isRelevantModule(mod):
-	if mod['Department'] == 'Computer Science' or mod['Department'] == 'Dean\'s Office (School Of Computing)':
+	if mod['Department'] == 'Computer Science' or mod['Department'] == 'Dean\'s Office (School Of Computing)' or mod['Department'] == "Information Systems":
 		return True
 
 	if isScienceModule(mod['ModuleCode']):
@@ -88,15 +89,7 @@ def parseModuleCode(moduleCode):
 	return (level, prefix)
 
 def parsePrerequisites(prerequisites):
-	# global modules
-	# prereqs = []
-	# for mod in modules:
-	# 	if mod in prerequisites:
-	# 		prereqs.append(mod)
-
-	# return prereqs
-
-	# remove all non-module-name and non-and words
+	prerequisites = re.sub("[().!,]","",prerequisites)
 	prereqs = prerequisites.split(" ")
 	deleteList = []
 	for word in prereqs:
@@ -132,6 +125,31 @@ def parsePrerequisites(prerequisites):
 	for l in splitPrereqs:
 		finalPrereq.append(l.split(" "))
 
+	# Replacing mods with all equivalent modules
+	equivalentModules = [["CS1010", "CS1010E", "CS1010J", "CS1010R", "CS1010S", "CS1010X", "CS1101S"],
+						["CS1020", "CS1020E", "CS2020"],
+						["CS2010", "CS2020"],
+						["CS2103", "CS2103T"]]
+
+	for group in finalPrereq:
+		replace = [False, False, False, False]
+		deleteList = []
+		for i in range(0, 4):
+			for mod in group:
+				if mod in equivalentModules[i]:
+					deleteList.append(mod)
+					replace[i] = True
+		for mod in deleteList:
+			try:
+				group.remove(mod)
+			except ValueError:
+				continue
+		for i in range(0, 4):
+			if replace[i]:
+				for mod in equivalentModules[i]:
+					group.append(mod)
+		group = list(set(group))
+	###
 	return finalPrereq
 
 def parsePreclusions(preclusions):
@@ -240,7 +258,6 @@ def computeChainLengths():
 		for mod in modules:
 			if chainLengths.has_key(mod):
 				continue
-
 			prereq = prerequisites[mod]
 			if len(prereq) == 0:
 				chainLengths[mod] = 0
