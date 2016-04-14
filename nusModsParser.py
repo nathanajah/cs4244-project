@@ -61,7 +61,7 @@ def isScienceModule(moduleCode):
 	return False
 
 def isRelevantModule(mod):
-	if mod['Department'] == 'Computer Science':
+	if mod['Department'] == 'Computer Science' or mod['Department'] == 'Dean\'s Office (School Of Computing)':
 		return True
 
 	if isScienceModule(mod['ModuleCode']):
