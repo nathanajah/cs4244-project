@@ -48,6 +48,92 @@
 	(assert (EXAM_TIME_SLOT (module-code CM1502) (semester 2) (exam-time 29-apr-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CM1502) (timings Monday-6 Monday-7 Wednesday-9)))
 
+	(make-instance [CP2201] of MODULE (module-code CP2201) (is-ue NO) (chain-length 0) (semesters 1))
+	(assert (EXAM_TIME_SLOT (module-code CP2201) (semester 1) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP2201) (timings Monday-10 Monday-11 Monday-12)))
+
+	(make-instance [CP3101A] of MODULE (module-code CP3101A) (is-ue NO) (chain-length 3) (semesters 2))
+	(assert (MODULE_PREREQUISITES (module-code CP3101A) (prerequisites CS2103)))
+	(assert (EXAM_TIME_SLOT (module-code CP3101A) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3101A) (timings nil)))
+
+	(make-instance [CP3106] of MODULE (module-code CP3106) (is-ue NO) (chain-length 4) (semesters 1 2))
+	(assert (MODULE_PREREQUISITES (module-code CP3106) (prerequisites CS2102 CS2105 CS3201 CS3281)))
+	(assert (EXAM_TIME_SLOT (module-code CP3106) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP3106) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3106) (timings nil)))
+
+	(make-instance [CP3108A] of MODULE (module-code CP3108A) (is-ue NO) (chain-length 0) (semesters 1 2))
+	(assert (EXAM_TIME_SLOT (module-code CP3108A) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP3108A) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3108A) (timings nil)))
+
+	(make-instance [CP3108B] of MODULE (module-code CP3108B) (is-ue NO) (chain-length 0) (semesters 1 2))
+	(assert (EXAM_TIME_SLOT (module-code CP3108B) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP3108B) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3108B) (timings nil)))
+
+	(make-instance [CP3109] of MODULE (module-code CP3109) (is-ue NO) (chain-length 0) (semesters 1 2))
+	(assert (EXAM_TIME_SLOT (module-code CP3109) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP3109) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3109) (timings nil)))
+
+	(make-instance [CP3200] of MODULE (module-code CP3200) (is-ue NO) (chain-length 0) (semesters 1 2))
+	(assert (EXAM_TIME_SLOT (module-code CP3200) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP3200) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3200) (timings nil)))
+
+	(make-instance [CP3201] of MODULE (module-code CP3201) (is-ue NO) (chain-length 0) (semesters 1))
+	(assert (EXAM_TIME_SLOT (module-code CP3201) (semester 1) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3201) (timings Thursday-6 Thursday-7)))
+
+	(make-instance [CP3202] of MODULE (module-code CP3202) (is-ue NO) (chain-length 1) (semesters 1 2))
+	(assert (MODULE_PREREQUISITES (module-code CP3202) (prerequisites CP3200)))
+	(assert (EXAM_TIME_SLOT (module-code CP3202) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP3202) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3202) (timings nil)))
+
+	(make-instance [CP3208] of MODULE (module-code CP3208) (is-ue NO) (chain-length 0) (semesters 1 2))
+	(assert (EXAM_TIME_SLOT (module-code CP3208) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP3208) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3208) (timings nil)))
+
+	(make-instance [CP3209] of MODULE (module-code CP3209) (is-ue NO) (chain-length 4) (semesters 1 2))
+	(assert (MODULE_PREREQUISITES (module-code CP3209) (prerequisites CS2309)))
+	(assert (EXAM_TIME_SLOT (module-code CP3209) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP3209) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3209) (timings nil)))
+
+	(make-instance [CP3880] of MODULE (module-code CP3880) (is-ue NO) (chain-length 3) (semesters 1 2))
+	(assert (MODULE_PREREQUISITES (module-code CP3880) (prerequisites CS2103 CS2103T)))
+	(assert (EXAM_TIME_SLOT (module-code CP3880) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP3880) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP3880) (timings nil)))
+
+	(make-instance [CP4101] of MODULE (module-code CP4101) (is-ue NO) (chain-length 0) (semesters 1 2))
+	(assert (EXAM_TIME_SLOT (module-code CP4101) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP4101) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP4101) (timings nil)))
+
+	(make-instance [CP5010] of MODULE (module-code CP5010) (is-ue NO) (chain-length 0) (semesters 1 2))
+	(assert (EXAM_TIME_SLOT (module-code CP5010) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP5010) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP5010) (timings nil)))
+
+	(make-instance [CP5101] of MODULE (module-code CP5101) (is-ue NO) (chain-length 0) (semesters 1 2))
+	(assert (EXAM_TIME_SLOT (module-code CP5101) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP5101) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP5101) (timings nil)))
+
+	(make-instance [CP5102] of MODULE (module-code CP5102) (is-ue NO) (chain-length 0) (semesters 2))
+	(assert (EXAM_TIME_SLOT (module-code CP5102) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP5102) (timings nil)))
+
+	(make-instance [CP6010] of MODULE (module-code CP6010) (is-ue NO) (chain-length 0) (semesters 1 2))
+	(assert (EXAM_TIME_SLOT (module-code CP6010) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code CP6010) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code CP6010) (timings nil)))
+
 	(make-instance [CS1010] of MODULE (module-code CS1010) (is-ue NO) (chain-length 0) (semesters 1 2))
 	(assert (EXAM_TIME_SLOT (module-code CS1010) (semester 1) (exam-time 26-nov-evening)))
 	(assert (EXAM_TIME_SLOT (module-code CS1010) (semester 2) (exam-time 28-apr-evening)))
@@ -750,6 +836,10 @@
 	(assert (EXAM_TIME_SLOT (module-code CS6282) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS6282) (timings Tuesday-4 Tuesday-5 Tuesday-6)))
 
+	(make-instance [FMC1206] of MODULE (module-code FMC1206) (is-ue NO) (chain-length 0) (semesters 2))
+	(assert (EXAM_TIME_SLOT (module-code FMC1206) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code FMC1206) (timings nil)))
+
 	(make-instance [GET1031] of MODULE (module-code GET1031) (is-ue NO) (chain-length 0) (semesters 2))
 	(assert (EXAM_TIME_SLOT (module-code GET1031) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code GET1031) (timings Tuesday-8 Tuesday-9)))
@@ -907,6 +997,11 @@
 	(assert (EXAM_TIME_SLOT (module-code ST2334) (semester 2) (exam-time 25-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code ST2334) (timings Monday-2 Monday-3 Thursday-2 Thursday-3)))
 
+	(make-instance [XFC4101] of MODULE (module-code XFC4101) (is-ue NO) (chain-length 0) (semesters 1 2))
+	(assert (EXAM_TIME_SLOT (module-code XFC4101) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code XFC4101) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code XFC4101) (timings nil)))
+
 	(make-instance [UE1] of MODULE (module-code UE1) (is-ue YES) (chain-length 0) (semesters 1 2))
 	(assert (EXAM_TIME_SLOT (module-code UE1) (semester 1) (exam-time nil)))
 	(assert (EXAM_TIME_SLOT (module-code UE1) (semester 2) (exam-time nil)))
@@ -949,4 +1044,4 @@
 	(assert (TIMETABLE_SLOT (module-code UE10) (timings nil)))
 )
 
- (defglobal ?*current-semester* = (make-instance [sem] of SEMESTER (max-semester-number 4)))
+ (defglobal ?*current-semester* = (make-instance [sem] of SEMESTER (max-semester-number 3)))
