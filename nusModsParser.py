@@ -87,26 +87,52 @@ def parseModuleCode(moduleCode):
 
 	return (level, prefix)
 
-
 def parsePrerequisites(prerequisites):
-	global modules
-	prereqs = []
-	for mod in modules:
-		if mod in prerequisites:
-			prereqs.append(mod)
+	# global modules
+	# prereqs = []
+	# for mod in modules:
+	# 	if mod in prerequisites:
+	# 		prereqs.append(mod)
 
-	return prereqs
+	# return prereqs
 
-	# prereqs = prerequisites.split(" ")
-	# deleteList = []
-	# for word in prereqs:
-	# 	if word not in modules and word != "and" and word != "or":
-	# 		deleteList.append(word)
+	# remove all non-module-name and non-and words
+	prereqs = prerequisites.split(" ")
+	deleteList = []
+	for word in prereqs:
+		if word not in modules and word != "and":
+			deleteList.append(word)
 
-	# for word in deleteList:
-	# 	prereqs.remove(word)
+	for word in deleteList:
+		prereqs.remove(word)
 
-	# print prereqs
+	parsedPrereq = ""
+
+	for word in prereqs:
+		parsedPrereq += word
+		parsedPrereq += " "
+	###
+
+	# split the prereqs by and, remove empty spaces
+	deleteList = []
+	splitPrereqs = parsedPrereq.split("and")
+	for word in splitPrereqs:
+		if len(word) < 2:
+			deleteList.append(word)
+
+	for word in deleteList:
+		splitPrereqs.remove(word)
+
+	for i in range(0, len(splitPrereqs)):
+		splitPrereqs[i] = splitPrereqs[i].strip()
+	###
+
+	finalPrereq = []
+
+	for l in splitPrereqs:
+		finalPrereq.append(l.split(" "))
+
+	return finalPrereq
 
 def parsePreclusions(preclusions):
 	global modules
@@ -169,8 +195,6 @@ def parseModule(mod):
 	MCs[moduleCode] = mod["ModuleCredit"]
 	###
 
-	print moduleCode
-
 	# module level and prefix
 	levels[moduleCode], prefix[moduleCode] = parseModuleCode(moduleCode)
 	###
@@ -225,7 +249,8 @@ def computeChainLengths():
 				try:
 					maxChainLength = 0
 					for pr in prereq:
-						maxChainLength = max(maxChainLength, chainLengths[pr])
+						for p in pr:
+							maxChainLength = max(maxChainLength, chainLengths[p])
 					chainLengths[mod] = maxChainLength+1
 					resolved+=1
 
@@ -286,10 +311,11 @@ def writeCLIPSFile():
 		# clpFile.write("\t(make-instance of MODULE_STATUS (module-code " + str(mod) + ") (status candidate))\n")
 
 		if len(prerequisites[mod]) > 0:
-			clpFile.write("\t(assert (MODULE_PREREQUISITES (module-code " + str(mod) + ") (prerequisites")
 			for prereq in prerequisites[mod]:
-				clpFile.write(" " + str(prereq))
-			clpFile.write(")))\n")
+				clpFile.write("\t(assert (MODULE_PREREQUISITES (module-code " + str(mod) + ") (prerequisites")
+				for pr in prereq:
+					clpFile.write(" " + str(pr))
+				clpFile.write(")))\n")
 
 		if len(preclusions[mod]) > 0:
 			clpFile.write("\t(assert (MODULE_PRECLUSIONS (module-code " + str(mod) + ") (preclusions")

@@ -9,8 +9,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CM1111) (semester 1) (exam-time 27-nov-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CM1111) (timings Tuesday-8 Tuesday-9 Wednesday-1 Friday-8 Friday-9)))
 
-	(make-instance [CM1121] of MODULE (module-code CM1121) (module-name "Organic Chemistry 1") (mcs 4) (level 1) (module-prefix CM) (is-ue NO) (chain-length 1) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CM1121) (prerequisites CM1417)))
+	(make-instance [CM1121] of MODULE (module-code CM1121) (module-name "Organic Chemistry 1") (mcs 4) (level 1) (module-prefix CM) (is-ue NO) (chain-length 0) (semesters 2))
 	(assert (MODULE_PRECLUSIONS (module-code CM1121) (preclusions CM1501)))
 	(assert (EXAM_TIME_SLOT (module-code CM1121) (semester 2) (exam-time 25-apr-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CM1121) (timings Monday-2 Monday-3 Thursday-2 Thursday-3)))
@@ -56,13 +55,14 @@
 	(assert (EXAM_TIME_SLOT (module-code CP2201) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CP2201) (timings Monday-10 Monday-11 Monday-12)))
 
-	(make-instance [CP3101A] of MODULE (module-code CP3101A) (module-name "Global Open Source Project") (mcs 4) (level 3) (module-prefix CP) (is-ue NO) (chain-length 3) (semesters 2))
+	(make-instance [CP3101A] of MODULE (module-code CP3101A) (module-name "Global Open Source Project") (mcs 4) (level 3) (module-prefix CP) (is-ue NO) (chain-length 1) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CP3101A) (prerequisites CS2103)))
 	(assert (EXAM_TIME_SLOT (module-code CP3101A) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CP3101A) (timings nil)))
 
-	(make-instance [CP3106] of MODULE (module-code CP3106) (module-name "Independent Project") (mcs 4) (level 3) (module-prefix CP) (is-ue NO) (chain-length 4) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code CP3106) (prerequisites CS2102 CS2105 CS3201 CS3281)))
+	(make-instance [CP3106] of MODULE (module-code CP3106) (module-name "Independent Project") (mcs 4) (level 3) (module-prefix CP) (is-ue NO) (chain-length 3) (semesters 1 2))
+	(assert (MODULE_PREREQUISITES (module-code CP3106) (prerequisites CS2105)))
+	(assert (MODULE_PREREQUISITES (module-code CP3106) (prerequisites CS3201 CS3281)))
 	(assert (EXAM_TIME_SLOT (module-code CP3106) (semester 1) (exam-time nil)))
 	(assert (EXAM_TIME_SLOT (module-code CP3106) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CP3106) (timings nil)))
@@ -102,14 +102,13 @@
 	(assert (EXAM_TIME_SLOT (module-code CP3208) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CP3208) (timings nil)))
 
-	(make-instance [CP3209] of MODULE (module-code CP3209) (module-name "Undergraduate Research in Computing II") (mcs 4) (level 3) (module-prefix CP) (is-ue NO) (chain-length 4) (semesters 1 2))
+	(make-instance [CP3209] of MODULE (module-code CP3209) (module-name "Undergraduate Research in Computing II") (mcs 4) (level 3) (module-prefix CP) (is-ue NO) (chain-length 1) (semesters 1 2))
 	(assert (MODULE_PREREQUISITES (module-code CP3209) (prerequisites CS2309)))
 	(assert (EXAM_TIME_SLOT (module-code CP3209) (semester 1) (exam-time nil)))
 	(assert (EXAM_TIME_SLOT (module-code CP3209) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CP3209) (timings nil)))
 
-	(make-instance [CP3880] of MODULE (module-code CP3880) (module-name "Advanced Technology Attachment Programme") (mcs 12) (level 3) (module-prefix CP) (is-ue NO) (chain-length 3) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code CP3880) (prerequisites CS2103 CS2103T)))
+	(make-instance [CP3880] of MODULE (module-code CP3880) (module-name "Advanced Technology Attachment Programme") (mcs 12) (level 3) (module-prefix CP) (is-ue NO) (chain-length 0) (semesters 1 2))
 	(assert (EXAM_TIME_SLOT (module-code CP3880) (semester 1) (exam-time nil)))
 	(assert (EXAM_TIME_SLOT (module-code CP3880) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CP3880) (timings nil)))
@@ -180,7 +179,7 @@
 	(assert (TIMETABLE_SLOT (module-code CS1020) (timings nil)))
 
 	(make-instance [CS1020E] of MODULE (module-code CS1020E) (module-name "Data Structures and Algorithms I") (mcs 4) (level 1) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code CS1020E) (prerequisites CS1010 CS1010E)))
+	(assert (MODULE_PREREQUISITES (module-code CS1020E) (prerequisites CS1010E)))
 	(assert (MODULE_PRECLUSIONS (module-code CS1020E) (preclusions CS1020 CS2020)))
 	(assert (EXAM_TIME_SLOT (module-code CS1020E) (semester 1) (exam-time 23-nov-evening)))
 	(assert (EXAM_TIME_SLOT (module-code CS1020E) (semester 2) (exam-time 03-may-afternoon)))
@@ -217,7 +216,7 @@
 	(assert (TIMETABLE_SLOT (module-code CS2010R) (timings nil)))
 
 	(make-instance [CS2020] of MODULE (module-code CS2020) (module-name "Data Structures and Algorithms Accelerated") (mcs 6) (level 2) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS2020) (prerequisites CS1010 CS1010S CS1101S)))
+	(assert (MODULE_PREREQUISITES (module-code CS2020) (prerequisites CS1010 CS1101S CS1010S)))
 	(assert (MODULE_PRECLUSIONS (module-code CS2020) (preclusions CS1020 CS1020E CS2010)))
 	(assert (EXAM_TIME_SLOT (module-code CS2020) (semester 2) (exam-time 25-apr-evening)))
 	(assert (TIMETABLE_SLOT (module-code CS2020) (timings Wednesday-2 Wednesday-3 Friday-2 Friday-3)))
@@ -233,22 +232,19 @@
 	(assert (EXAM_TIME_SLOT (module-code CS2100R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS2100R) (timings nil)))
 
-	(make-instance [CS2102] of MODULE (module-code CS2102) (module-name "Database Systems") (mcs 4) (level 2) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code CS2102) (prerequisites CS1020 CS1231)))
+	(make-instance [CS2102] of MODULE (module-code CS2102) (module-name "Database Systems") (mcs 4) (level 2) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 1 2))
 	(assert (MODULE_PRECLUSIONS (module-code CS2102) (preclusions CS2102 IT2002)))
 	(assert (EXAM_TIME_SLOT (module-code CS2102) (semester 1) (exam-time 28-nov-morning)))
 	(assert (EXAM_TIME_SLOT (module-code CS2102) (semester 2) (exam-time 28-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS2102) (timings Wednesday-6 Wednesday-7)))
 
-	(make-instance [CS2102R] of MODULE (module-code CS2102R) (module-name "Database Systems") (mcs 1) (level 2) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code CS2102R) (prerequisites CS1020 CS1231)))
+	(make-instance [CS2102R] of MODULE (module-code CS2102R) (module-name "Database Systems") (mcs 1) (level 2) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 1 2))
 	(assert (MODULE_PRECLUSIONS (module-code CS2102R) (preclusions CS2102 IT2002)))
 	(assert (EXAM_TIME_SLOT (module-code CS2102R) (semester 1) (exam-time nil)))
 	(assert (EXAM_TIME_SLOT (module-code CS2102R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS2102R) (timings nil)))
 
-	(make-instance [CS2103] of MODULE (module-code CS2103) (module-name "Software Engineering") (mcs 4) (level 2) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code CS2103) (prerequisites CS1020)))
+	(make-instance [CS2103] of MODULE (module-code CS2103) (module-name "Software Engineering") (mcs 4) (level 2) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 1 2))
 	(assert (EXAM_TIME_SLOT (module-code CS2103) (semester 1) (exam-time 26-nov-afternoon)))
 	(assert (EXAM_TIME_SLOT (module-code CS2103) (semester 2) (exam-time 25-apr-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS2103) (timings Friday-8 Friday-9)))
@@ -318,8 +314,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CS2220R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS2220R) (timings nil)))
 
-	(make-instance [CS2309] of MODULE (module-code CS2309) (module-name "CS Research Methodology") (mcs 4) (level 2) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS2309) (prerequisites CS1231 CS2010)))
+	(make-instance [CS2309] of MODULE (module-code CS2309) (module-name "CS Research Methodology") (mcs 4) (level 2) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 1))
 	(assert (EXAM_TIME_SLOT (module-code CS2309) (semester 1) (exam-time 24-nov-evening)))
 	(assert (TIMETABLE_SLOT (module-code CS2309) (timings Thursday-2 Thursday-3)))
 
@@ -328,13 +323,13 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3103) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3103) (timings Thursday-4 Thursday-5)))
 
-	(make-instance [CS3201] of MODULE (module-code CS3201) (module-name "Software Engineering Project I") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1 2))
+	(make-instance [CS3201] of MODULE (module-code CS3201) (module-name "Software Engineering Project I") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1 2))
 	(assert (MODULE_PREREQUISITES (module-code CS3201) (prerequisites CS2103)))
 	(assert (EXAM_TIME_SLOT (module-code CS3201) (semester 1) (exam-time nil)))
 	(assert (EXAM_TIME_SLOT (module-code CS3201) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3201) (timings Monday-4 Monday-5)))
 
-	(make-instance [CS3202] of MODULE (module-code CS3202) (module-name "Software Engineering Project II") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1 2))
+	(make-instance [CS3202] of MODULE (module-code CS3202) (module-name "Software Engineering Project II") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1 2))
 	(assert (MODULE_PREREQUISITES (module-code CS3202) (prerequisites CS2103)))
 	(assert (EXAM_TIME_SLOT (module-code CS3202) (semester 1) (exam-time nil)))
 	(assert (EXAM_TIME_SLOT (module-code CS3202) (semester 2) (exam-time nil)))
@@ -350,28 +345,25 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3211) (semester 2) (exam-time 25-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS3211) (timings Thursday-6 Thursday-7)))
 
-	(make-instance [CS3216] of MODULE (module-code CS3216) (module-name "Software Development on Evolving Platforms") (mcs 5) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS3216) (prerequisites CS2103 CS2103T)))
+	(make-instance [CS3216] of MODULE (module-code CS3216) (module-name "Software Development on Evolving Platforms") (mcs 5) (level 3) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 1))
 	(assert (EXAM_TIME_SLOT (module-code CS3216) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3216) (timings Monday-10 Monday-11)))
 
-	(make-instance [CS3217] of MODULE (module-code CS3217) (module-name "Software Engineering on Modern Application Platforms") (mcs 5) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
+	(make-instance [CS3217] of MODULE (module-code CS3217) (module-name "Software Engineering on Modern Application Platforms") (mcs 5) (level 3) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS3217) (prerequisites CS2103)))
 	(assert (EXAM_TIME_SLOT (module-code CS3217) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3217) (timings Monday-8 Monday-9 Friday-5)))
 
 	(make-instance [CS3218] of MODULE (module-code CS3218) (module-name "Multimodal Processing in Mobile Platforms") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS3218) (prerequisites CS2108 MA1101R)))
+	(assert (MODULE_PREREQUISITES (module-code CS3218) (prerequisites CS2108)))
 	(assert (EXAM_TIME_SLOT (module-code CS3218) (semester 2) (exam-time 28-apr-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS3218) (timings Friday-6 Friday-7)))
 
-	(make-instance [CS3219] of MODULE (module-code CS3219) (module-name "Software Engineering Principles and Patterns") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS3219) (prerequisites CS2103)))
+	(make-instance [CS3219] of MODULE (module-code CS3219) (module-name "Software Engineering Principles and Patterns") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 1))
 	(assert (EXAM_TIME_SLOT (module-code CS3219) (semester 1) (exam-time 23-nov-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS3219) (timings Wednesday-6 Wednesday-7)))
 
-	(make-instance [CS3223] of MODULE (module-code CS3223) (module-name "Database Systems Implementation") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS3223) (prerequisites CS2010 CS2102)))
+	(make-instance [CS3223] of MODULE (module-code CS3223) (module-name "Database Systems Implementation") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 2))
 	(assert (EXAM_TIME_SLOT (module-code CS3223) (semester 2) (exam-time 03-may-evening)))
 	(assert (TIMETABLE_SLOT (module-code CS3223) (timings Thursday-8 Thursday-9)))
 
@@ -380,8 +372,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3223R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3223R) (timings nil)))
 
-	(make-instance [CS3225] of MODULE (module-code CS3225) (module-name "Combinatorial Methods in Bioinformatics") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS3225) (prerequisites CS2010 CS2220)))
+	(make-instance [CS3225] of MODULE (module-code CS3225) (module-name "Combinatorial Methods in Bioinformatics") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 2))
 	(assert (EXAM_TIME_SLOT (module-code CS3225) (semester 2) (exam-time 25-apr-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS3225) (timings Thursday-6 Thursday-7)))
 
@@ -390,8 +381,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3226) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3226) (timings Tuesday-2 Tuesday-3)))
 
-	(make-instance [CS3230] of MODULE (module-code CS3230) (module-name "Design and Analysis of Algorithms") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code CS3230) (prerequisites CS1231 CS2010)))
+	(make-instance [CS3230] of MODULE (module-code CS3230) (module-name "Design and Analysis of Algorithms") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 1 2))
 	(assert (EXAM_TIME_SLOT (module-code CS3230) (semester 1) (exam-time 24-nov-morning)))
 	(assert (EXAM_TIME_SLOT (module-code CS3230) (semester 2) (exam-time 23-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS3230) (timings Wednesday-4 Wednesday-5)))
@@ -401,8 +391,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3230R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3230R) (timings nil)))
 
-	(make-instance [CS3233] of MODULE (module-code CS3233) (module-name "Competitive Programming") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS3233) (prerequisites CS2010)))
+	(make-instance [CS3233] of MODULE (module-code CS3233) (module-name "Competitive Programming") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 2))
 	(assert (EXAM_TIME_SLOT (module-code CS3233) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3233) (timings Wednesday-9 Wednesday-10 Wednesday-11 Wednesday-12 Wednesday-13)))
 
@@ -421,8 +410,8 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3234R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3234R) (timings nil)))
 
-	(make-instance [CS3235] of MODULE (module-code CS3235) (module-name "Computer Security") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code CS3235) (prerequisites CS2105 CS2106 CS2107)))
+	(make-instance [CS3235] of MODULE (module-code CS3235) (module-name "Computer Security") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1 2))
+	(assert (MODULE_PREREQUISITES (module-code CS3235) (prerequisites CS2107)))
 	(assert (EXAM_TIME_SLOT (module-code CS3235) (semester 1) (exam-time 25-nov-morning)))
 	(assert (EXAM_TIME_SLOT (module-code CS3235) (semester 2) (exam-time 04-may-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS3235) (timings Tuesday-6 Tuesday-7)))
@@ -443,13 +432,12 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3241R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3241R) (timings nil)))
 
-	(make-instance [CS3242] of MODULE (module-code CS3242) (module-name "3D Modeling and Animation") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS3242) (prerequisites CS3241 MA1101R PC1221)))
+	(make-instance [CS3242] of MODULE (module-code CS3242) (module-name "3D Modeling and Animation") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 2))
+	(assert (MODULE_PREREQUISITES (module-code CS3242) (prerequisites MA1101R)))
 	(assert (EXAM_TIME_SLOT (module-code CS3242) (semester 2) (exam-time 29-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS3242) (timings Tuesday-4 Tuesday-5)))
 
-	(make-instance [CS3243] of MODULE (module-code CS3243) (module-name "Introduction to Artificial Intelligence") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS3243) (prerequisites CS1231 CS2010)))
+	(make-instance [CS3243] of MODULE (module-code CS3243) (module-name "Introduction to Artificial Intelligence") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 2))
 	(assert (EXAM_TIME_SLOT (module-code CS3243) (semester 2) (exam-time 26-apr-evening)))
 	(assert (TIMETABLE_SLOT (module-code CS3243) (timings Monday-6 Monday-7)))
 
@@ -458,8 +446,8 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3243R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3243R) (timings nil)))
 
-	(make-instance [CS3244] of MODULE (module-code CS3244) (module-name "Machine Learning") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS3244) (prerequisites CS2010 ST2131 ST2132 ST2334)))
+	(make-instance [CS3244] of MODULE (module-code CS3244) (module-name "Machine Learning") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS3244) (prerequisites ST2131 ST2132)))
 	(assert (EXAM_TIME_SLOT (module-code CS3244) (semester 1) (exam-time 30-nov-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS3244) (timings Tuesday-6 Tuesday-7)))
 
@@ -478,7 +466,8 @@
 	(assert (TIMETABLE_SLOT (module-code CS3246R) (timings nil)))
 
 	(make-instance [CS3247] of MODULE (module-code CS3247) (module-name "Game Development") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS3247) (prerequisites CS3241 PC1221)))
+	(assert (MODULE_PREREQUISITES (module-code CS3247) (prerequisites CS3241)))
+	(assert (MODULE_PREREQUISITES (module-code CS3247) (prerequisites PC1221)))
 	(assert (EXAM_TIME_SLOT (module-code CS3247) (semester 2) (exam-time 26-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS3247) (timings Tuesday-8 Tuesday-9)))
 
@@ -487,7 +476,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3249) (semester 2) (exam-time 27-apr-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS3249) (timings Thursday-4 Thursday-5)))
 
-	(make-instance [CS3281] of MODULE (module-code CS3281) (module-name "Thematic Systems Project I") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
+	(make-instance [CS3281] of MODULE (module-code CS3281) (module-name "Thematic Systems Project I") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS3281) (prerequisites CS2103)))
 	(assert (EXAM_TIME_SLOT (module-code CS3281) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3281) (timings Monday-4 Monday-5)))
@@ -496,7 +485,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3281R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3281R) (timings nil)))
 
-	(make-instance [CS3282] of MODULE (module-code CS3282) (module-name "Thematic Systems Project II") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
+	(make-instance [CS3282] of MODULE (module-code CS3282) (module-name "Thematic Systems Project II") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS3282) (prerequisites CS3281)))
 	(assert (EXAM_TIME_SLOT (module-code CS3282) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3282) (timings Thursday-4 Thursday-5)))
@@ -506,7 +495,7 @@
 	(assert (TIMETABLE_SLOT (module-code CS3282R) (timings nil)))
 
 	(make-instance [CS3283] of MODULE (module-code CS3283) (module-name "Media Technology Project I") (mcs 4) (level 3) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS3283) (prerequisites CS2103 CS2103T CS3218 CS3240 CS3241 CS3242 CS3245 CS3247 CS3249)))
+	(assert (MODULE_PREREQUISITES (module-code CS3283) (prerequisites CS3240 CS3241 CS3242 CS3245 CS3247 CS3249)))
 	(assert (EXAM_TIME_SLOT (module-code CS3283) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3283) (timings Thursday-8 Thursday-9)))
 
@@ -516,7 +505,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CS3284) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS3284) (timings Friday-8 Friday-9)))
 
-	(make-instance [CS4211] of MODULE (module-code CS4211) (module-name "Formal Methods for Software Engineering") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
+	(make-instance [CS4211] of MODULE (module-code CS4211) (module-name "Formal Methods for Software Engineering") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
 	(assert (MODULE_PREREQUISITES (module-code CS4211) (prerequisites CS2103)))
 	(assert (EXAM_TIME_SLOT (module-code CS4211) (semester 1) (exam-time 23-nov-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS4211) (timings Tuesday-10 Tuesday-11 Tuesday-12)))
@@ -527,7 +516,7 @@
 	(assert (TIMETABLE_SLOT (module-code CS4212) (timings Thursday-10 Thursday-11 Thursday-12)))
 
 	(make-instance [CS4215] of MODULE (module-code CS4215) (module-name "Programming Language Implementation") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS4215) (prerequisites CS2010 CS2104)))
+	(assert (MODULE_PREREQUISITES (module-code CS4215) (prerequisites CS2104)))
 	(assert (EXAM_TIME_SLOT (module-code CS4215) (semester 2) (exam-time 27-apr-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS4215) (timings Tuesday-2 Tuesday-3)))
 
@@ -535,7 +524,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CS4215R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS4215R) (timings nil)))
 
-	(make-instance [CS4218] of MODULE (module-code CS4218) (module-name "Software Testing") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
+	(make-instance [CS4218] of MODULE (module-code CS4218) (module-name "Software Testing") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS4218) (prerequisites CS3219)))
 	(assert (EXAM_TIME_SLOT (module-code CS4218) (semester 2) (exam-time 03-may-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS4218) (timings Tuesday-6 Tuesday-7)))
@@ -549,18 +538,17 @@
 	(assert (EXAM_TIME_SLOT (module-code CS4220R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS4220R) (timings nil)))
 
-	(make-instance [CS4221] of MODULE (module-code CS4221) (module-name "Database Applications Design and Tuning") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
+	(make-instance [CS4221] of MODULE (module-code CS4221) (module-name "Database Applications Design and Tuning") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS4221) (prerequisites CS3223)))
 	(assert (EXAM_TIME_SLOT (module-code CS4221) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS4221) (timings Thursday-1 Thursday-2 Thursday-3)))
 
-	(make-instance [CS4222] of MODULE (module-code CS4222) (module-name "Wireless Networking") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS4222) (prerequisites CS2105 ST2131 ST2334)))
+	(make-instance [CS4222] of MODULE (module-code CS4222) (module-name "Wireless Networking") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 2))
+	(assert (MODULE_PREREQUISITES (module-code CS4222) (prerequisites ST2131)))
 	(assert (EXAM_TIME_SLOT (module-code CS4222) (semester 2) (exam-time 23-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS4222) (timings Monday-7 Monday-8 Monday-9)))
 
-	(make-instance [CS4223] of MODULE (module-code CS4223) (module-name "Multi-core Architectures") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS4223) (prerequisites CS2106 CS3210)))
+	(make-instance [CS4223] of MODULE (module-code CS4223) (module-name "Multi-core Architectures") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 1))
 	(assert (EXAM_TIME_SLOT (module-code CS4223) (semester 1) (exam-time 25-nov-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS4223) (timings Friday-5 Friday-6 Friday-7)))
 
@@ -568,23 +556,24 @@
 	(assert (EXAM_TIME_SLOT (module-code CS4223R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS4223R) (timings nil)))
 
-	(make-instance [CS4224] of MODULE (module-code CS4224) (module-name "Distributed Databases") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
+	(make-instance [CS4224] of MODULE (module-code CS4224) (module-name "Distributed Databases") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
 	(assert (MODULE_PREREQUISITES (module-code CS4224) (prerequisites CS3223)))
 	(assert (EXAM_TIME_SLOT (module-code CS4224) (semester 1) (exam-time 23-nov-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS4224) (timings Wednesday-10 Wednesday-11 Wednesday-12)))
 
-	(make-instance [CS4225] of MODULE (module-code CS4225) (module-name "Massive Data Processing Techniques in Data Science") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
+	(make-instance [CS4225] of MODULE (module-code CS4225) (module-name "Massive Data Processing Techniques in Data Science") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS4225) (prerequisites CS3223)))
 	(assert (EXAM_TIME_SLOT (module-code CS4225) (semester 2) (exam-time 26-apr-evening)))
 	(assert (TIMETABLE_SLOT (module-code CS4225) (timings Monday-4 Monday-5)))
 
-	(make-instance [CS4226] of MODULE (module-code CS4226) (module-name "Internet Architecture") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS4226) (prerequisites CS2105 ST2131 ST2334)))
+	(make-instance [CS4226] of MODULE (module-code CS4226) (module-name "Internet Architecture") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS4226) (prerequisites ST2131)))
 	(assert (EXAM_TIME_SLOT (module-code CS4226) (semester 1) (exam-time 27-nov-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS4226) (timings Friday-2 Friday-3)))
 
-	(make-instance [CS4231] of MODULE (module-code CS4231) (module-name "Parallel and Distributed Algorithms") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS4231) (prerequisites CS3210 CS3230)))
+	(make-instance [CS4231] of MODULE (module-code CS4231) (module-name "Parallel and Distributed Algorithms") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
+	(assert (MODULE_PREREQUISITES (module-code CS4231) (prerequisites CS3230)))
+	(assert (MODULE_PREREQUISITES (module-code CS4231) (prerequisites CS3210)))
 	(assert (EXAM_TIME_SLOT (module-code CS4231) (semester 2) (exam-time 25-apr-evening)))
 	(assert (TIMETABLE_SLOT (module-code CS4231) (timings Tuesday-1 Tuesday-2 Tuesday-3)))
 
@@ -597,33 +586,37 @@
 	(assert (EXAM_TIME_SLOT (module-code CS4232R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS4232R) (timings nil)))
 
-	(make-instance [CS4234] of MODULE (module-code CS4234) (module-name "Optimisation Algorithms") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS4234) (prerequisites CS3230 MA1101R)))
+	(make-instance [CS4234] of MODULE (module-code CS4234) (module-name "Optimisation Algorithms") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS4234) (prerequisites MA1101R)))
+	(assert (MODULE_PREREQUISITES (module-code CS4234) (prerequisites CS3230)))
 	(assert (EXAM_TIME_SLOT (module-code CS4234) (semester 1) (exam-time 25-nov-evening)))
 	(assert (TIMETABLE_SLOT (module-code CS4234) (timings Tuesday-4 Tuesday-5)))
 
-	(make-instance [CS4236] of MODULE (module-code CS4236) (module-name "Cryptography Theory and Practice") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS4236) (prerequisites CS2107 CS3230)))
+	(make-instance [CS4236] of MODULE (module-code CS4236) (module-name "Cryptography Theory and Practice") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS4236) (prerequisites CS2107)))
+	(assert (MODULE_PREREQUISITES (module-code CS4236) (prerequisites CS3230)))
 	(assert (EXAM_TIME_SLOT (module-code CS4236) (semester 1) (exam-time 25-nov-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS4236) (timings Thursday-10 Thursday-11 Thursday-12)))
 
-	(make-instance [CS4238] of MODULE (module-code CS4238) (module-name "Computer Security Practice") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
+	(make-instance [CS4238] of MODULE (module-code CS4238) (module-name "Computer Security Practice") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS4238) (prerequisites CS3235)))
 	(assert (EXAM_TIME_SLOT (module-code CS4238) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS4238) (timings Wednesday-10 Wednesday-11)))
 
-	(make-instance [CS4239] of MODULE (module-code CS4239) (module-name "Software Security") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS4239) (prerequisites CS2103 CS2103T CS3235)))
+	(make-instance [CS4239] of MODULE (module-code CS4239) (module-name "Software Security") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS4239) (prerequisites CS3235)))
+	(assert (MODULE_PREREQUISITES (module-code CS4239) (prerequisites CS2103)))
 	(assert (EXAM_TIME_SLOT (module-code CS4239) (semester 1) (exam-time 30-nov-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS4239) (timings Monday-4 Monday-5)))
 
 	(make-instance [CS4242] of MODULE (module-code CS4242) (module-name "Social Media Computing") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS4242) (prerequisites CS2108 CS3245)))
+	(assert (MODULE_PREREQUISITES (module-code CS4242) (prerequisites CS2108)))
+	(assert (MODULE_PREREQUISITES (module-code CS4242) (prerequisites CS3245)))
 	(assert (EXAM_TIME_SLOT (module-code CS4242) (semester 2) (exam-time 30-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS4242) (timings Monday-10 Monday-11 Monday-12)))
 
-	(make-instance [CS4243] of MODULE (module-code CS4243) (module-name "Computer Vision and Pattern Recognition") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS4243) (prerequisites CS1020 MA1101R ST2131 ST2334)))
+	(make-instance [CS4243] of MODULE (module-code CS4243) (module-name "Computer Vision and Pattern Recognition") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS4243) (prerequisites ST2131)))
 	(assert (EXAM_TIME_SLOT (module-code CS4243) (semester 1) (exam-time 24-nov-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS4243) (timings Monday-10 Monday-11)))
 
@@ -631,13 +624,14 @@
 	(assert (EXAM_TIME_SLOT (module-code CS4243R) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS4243R) (timings nil)))
 
-	(make-instance [CS4244] of MODULE (module-code CS4244) (module-name "Knowledge-Based Systems") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
+	(make-instance [CS4244] of MODULE (module-code CS4244) (module-name "Knowledge-Based Systems") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS4244) (prerequisites CS3243)))
 	(assert (EXAM_TIME_SLOT (module-code CS4244) (semester 2) (exam-time 03-may-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS4244) (timings Friday-6 Friday-7)))
 
-	(make-instance [CS4246] of MODULE (module-code CS4246) (module-name "AI Planning and Decision Making") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS4246) (prerequisites CS3243 ST2131 ST2334)))
+	(make-instance [CS4246] of MODULE (module-code CS4246) (module-name "AI Planning and Decision Making") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS4246) (prerequisites ST2131 ST2334)))
+	(assert (MODULE_PREREQUISITES (module-code CS4246) (prerequisites CS3243)))
 	(assert (EXAM_TIME_SLOT (module-code CS4246) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS4246) (timings Thursday-4 Thursday-5)))
 
@@ -651,7 +645,8 @@
 	(assert (TIMETABLE_SLOT (module-code CS4247) (timings Monday-2 Monday-3 Wednesday-3)))
 
 	(make-instance [CS4248] of MODULE (module-code CS4248) (module-name "Natural Language Processing") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS4248) (prerequisites CS3243 CS3245 ST2131 ST2334)))
+	(assert (MODULE_PREREQUISITES (module-code CS4248) (prerequisites CS3245)))
+	(assert (MODULE_PREREQUISITES (module-code CS4248) (prerequisites ST2131 ST2334)))
 	(assert (EXAM_TIME_SLOT (module-code CS4248) (semester 1) (exam-time 26-nov-evening)))
 	(assert (TIMETABLE_SLOT (module-code CS4248) (timings Friday-7 Friday-8 Friday-9)))
 
@@ -665,7 +660,7 @@
 	(assert (TIMETABLE_SLOT (module-code CS4249) (timings Tuesday-1 Tuesday-2 Tuesday-3)))
 
 	(make-instance [CS4340] of MODULE (module-code CS4340) (module-name "Digital Special Effects") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS4340) (prerequisites CS4243 CS4247)))
+	(assert (MODULE_PREREQUISITES (module-code CS4340) (prerequisites CS4247)))
 	(assert (EXAM_TIME_SLOT (module-code CS4340) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS4340) (timings Wednesday-4 Wednesday-5)))
 
@@ -674,8 +669,8 @@
 	(assert (EXAM_TIME_SLOT (module-code CS4345) (semester 1) (exam-time 23-nov-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS4345) (timings Thursday-6 Thursday-7)))
 
-	(make-instance [CS4350] of MODULE (module-code CS4350) (module-name "Game Development Project") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 6) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS4350) (prerequisites CS3247 CS3283 CS3284)))
+	(make-instance [CS4350] of MODULE (module-code CS4350) (module-name "Game Development Project") (mcs 4) (level 4) (module-prefix CS) (is-ue NO) (chain-length 5) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS4350) (prerequisites CS3283)))
 	(assert (EXAM_TIME_SLOT (module-code CS4350) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS4350) (timings nil)))
 
@@ -699,7 +694,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CS5218) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS5218) (timings Thursday-10 Thursday-11)))
 
-	(make-instance [CS5222] of MODULE (module-code CS5222) (module-name "Advanced Computer Architecture") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
+	(make-instance [CS5222] of MODULE (module-code CS5222) (module-name "Advanced Computer Architecture") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
 	(assert (MODULE_PREREQUISITES (module-code CS5222) (prerequisites CS4223)))
 	(assert (EXAM_TIME_SLOT (module-code CS5222) (semester 1) (exam-time 01-dec-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS5222) (timings Thursday-10 Thursday-11)))
@@ -713,17 +708,19 @@
 	(assert (EXAM_TIME_SLOT (module-code CS5224) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS5224) (timings Tuesday-10 Tuesday-11)))
 
-	(make-instance [CS5226] of MODULE (module-code CS5226) (module-name "Database Tuning") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
+	(make-instance [CS5226] of MODULE (module-code CS5226) (module-name "Database Tuning") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
 	(assert (MODULE_PREREQUISITES (module-code CS5226) (prerequisites CS3223)))
 	(assert (EXAM_TIME_SLOT (module-code CS5226) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS5226) (timings Thursday-10 Thursday-11)))
 
-	(make-instance [CS5228] of MODULE (module-code CS5228) (module-name "Knowledge Discovery and Data Mining") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS5228) (prerequisites CS2102 CS3243 ST2131 ST2334)))
+	(make-instance [CS5228] of MODULE (module-code CS5228) (module-name "Knowledge Discovery and Data Mining") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS5228) (prerequisites CS2102)))
+	(assert (MODULE_PREREQUISITES (module-code CS5228) (prerequisites ST2131 ST2334)))
+	(assert (MODULE_PREREQUISITES (module-code CS5228) (prerequisites CS3243)))
 	(assert (EXAM_TIME_SLOT (module-code CS5228) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS5228) (timings Tuesday-10 Tuesday-11)))
 
-	(make-instance [CS5229] of MODULE (module-code CS5229) (module-name "Advanced Computer Networks") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
+	(make-instance [CS5229] of MODULE (module-code CS5229) (module-name "Advanced Computer Networks") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1))
 	(assert (MODULE_PREREQUISITES (module-code CS5229) (prerequisites CS4226)))
 	(assert (EXAM_TIME_SLOT (module-code CS5229) (semester 1) (exam-time 21-nov-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS5229) (timings Friday-10 Friday-11)))
@@ -733,43 +730,46 @@
 	(assert (EXAM_TIME_SLOT (module-code CS5230) (semester 2) (exam-time 04-may-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS5230) (timings Tuesday-10 Tuesday-11 Tuesday-12)))
 
-	(make-instance [CS5231] of MODULE (module-code CS5231) (module-name "Systems Security") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
+	(make-instance [CS5231] of MODULE (module-code CS5231) (module-name "Systems Security") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
 	(assert (MODULE_PREREQUISITES (module-code CS5231) (prerequisites CS3235)))
 	(assert (EXAM_TIME_SLOT (module-code CS5231) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS5231) (timings Friday-10 Friday-11)))
 
-	(make-instance [CS5232] of MODULE (module-code CS5232) (module-name "Formal Specification and Design Techniques") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS5232) (prerequisites CS1231 CS2103)))
+	(make-instance [CS5232] of MODULE (module-code CS5232) (module-name "Formal Specification and Design Techniques") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 2))
+	(assert (MODULE_PREREQUISITES (module-code CS5232) (prerequisites CS2103)))
 	(assert (EXAM_TIME_SLOT (module-code CS5232) (semester 2) (exam-time 29-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code CS5232) (timings Monday-10 Monday-11)))
 
-	(make-instance [CS5233] of MODULE (module-code CS5233) (module-name "Simulation and Modelling Techniques") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 5) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code CS5233) (prerequisites CS4231 ST2131 ST2334)))
+	(make-instance [CS5233] of MODULE (module-code CS5233) (module-name "Simulation and Modelling Techniques") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
+	(assert (MODULE_PREREQUISITES (module-code CS5233) (prerequisites ST2131 ST2334)))
+	(assert (MODULE_PREREQUISITES (module-code CS5233) (prerequisites CS4231)))
 	(assert (EXAM_TIME_SLOT (module-code CS5233) (semester 2) (exam-time 27-apr-evening)))
 	(assert (TIMETABLE_SLOT (module-code CS5233) (timings Wednesday-10 Wednesday-11)))
 
-	(make-instance [CS5240] of MODULE (module-code CS5240) (module-name "Theoretical Foundations in MultiMedia") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS5240) (prerequisites CS1020 MA1101R ST2131 ST2334)))
+	(make-instance [CS5240] of MODULE (module-code CS5240) (module-name "Theoretical Foundations in MultiMedia") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS5240) (prerequisites ST2131)))
 	(assert (EXAM_TIME_SLOT (module-code CS5240) (semester 1) (exam-time 26-nov-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code CS5240) (timings Friday-10 Friday-11 Friday-12)))
 
-	(make-instance [CS5248] of MODULE (module-code CS5248) (module-name "Systems Support for Continuous Media") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS5248) (prerequisites CS2106 CS4226)))
+	(make-instance [CS5248] of MODULE (module-code CS5248) (module-name "Systems Support for Continuous Media") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS5248) (prerequisites CS2106)))
+	(assert (MODULE_PREREQUISITES (module-code CS5248) (prerequisites CS4226)))
 	(assert (EXAM_TIME_SLOT (module-code CS5248) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS5248) (timings Wednesday-10 Wednesday-11)))
 
-	(make-instance [CS5321] of MODULE (module-code CS5321) (module-name "Network Security") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
+	(make-instance [CS5321] of MODULE (module-code CS5321) (module-name "Network Security") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS5321) (prerequisites CS3235)))
 	(assert (EXAM_TIME_SLOT (module-code CS5321) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS5321) (timings Friday-10 Friday-11)))
 
-	(make-instance [CS5331] of MODULE (module-code CS5331) (module-name "Web Security") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
+	(make-instance [CS5331] of MODULE (module-code CS5331) (module-name "Web Security") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS5331) (prerequisites CS3235)))
 	(assert (EXAM_TIME_SLOT (module-code CS5331) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS5331) (timings Tuesday-10 Tuesday-11)))
 
-	(make-instance [CS5340] of MODULE (module-code CS5340) (module-name "Uncertainty Modelling in AI") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS5340) (prerequisites CS3243 ST2131 ST2334)))
+	(make-instance [CS5340] of MODULE (module-code CS5340) (module-name "Uncertainty Modelling in AI") (mcs 4) (level 5) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
+	(assert (MODULE_PREREQUISITES (module-code CS5340) (prerequisites ST2131 ST2334)))
+	(assert (MODULE_PREREQUISITES (module-code CS5340) (prerequisites CS3243)))
 	(assert (EXAM_TIME_SLOT (module-code CS5340) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS5340) (timings Wednesday-10 Wednesday-11)))
 
@@ -796,12 +796,12 @@
 	(assert (EXAM_TIME_SLOT (module-code CS6202) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS6202) (timings Tuesday-8 Tuesday-9 Tuesday-11)))
 
-	(make-instance [CS6203] of MODULE (module-code CS6203) (module-name "Advanced Topics in Database Systems") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
+	(make-instance [CS6203] of MODULE (module-code CS6203) (module-name "Advanced Topics in Database Systems") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 1))
 	(assert (MODULE_PREREQUISITES (module-code CS6203) (prerequisites CS3223)))
 	(assert (EXAM_TIME_SLOT (module-code CS6203) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS6203) (timings Thursday-4 Thursday-5)))
 
-	(make-instance [CS6204] of MODULE (module-code CS6204) (module-name "Advanced Topics in Networking") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 5) (semesters 1))
+	(make-instance [CS6204] of MODULE (module-code CS6204) (module-name "Advanced Topics in Networking") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 3) (semesters 1))
 	(assert (MODULE_PREREQUISITES (module-code CS6204) (prerequisites CS5229)))
 	(assert (EXAM_TIME_SLOT (module-code CS6204) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS6204) (timings Friday-3 Friday-4)))
@@ -810,17 +810,17 @@
 	(assert (EXAM_TIME_SLOT (module-code CS6205) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS6205) (timings Friday-5 Friday-6)))
 
-	(make-instance [CS6210] of MODULE (module-code CS6210) (module-name "The Art of Computer Science Research") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 2))
+	(make-instance [CS6210] of MODULE (module-code CS6210) (module-name "The Art of Computer Science Research") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 1) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS6210) (prerequisites CS3230)))
 	(assert (EXAM_TIME_SLOT (module-code CS6210) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS6210) (timings Thursday-1 Thursday-2)))
 
-	(make-instance [CS6213] of MODULE (module-code CS6213) (module-name "Special Topics in Distributed Computing") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 5) (semesters 1))
+	(make-instance [CS6213] of MODULE (module-code CS6213) (module-name "Special Topics in Distributed Computing") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 4) (semesters 1))
 	(assert (MODULE_PREREQUISITES (module-code CS6213) (prerequisites CS3211 CS4231)))
 	(assert (EXAM_TIME_SLOT (module-code CS6213) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS6213) (timings Wednesday-5 Wednesday-6)))
 
-	(make-instance [CS6220] of MODULE (module-code CS6220) (module-name "Advanced Topics in Data Mining") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 5) (semesters 2))
+	(make-instance [CS6220] of MODULE (module-code CS6220) (module-name "Advanced Topics in Data Mining") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 2))
 	(assert (MODULE_PREREQUISITES (module-code CS6220) (prerequisites CS5228)))
 	(assert (EXAM_TIME_SLOT (module-code CS6220) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS6220) (timings Friday-1 Friday-2)))
@@ -843,8 +843,7 @@
 	(assert (EXAM_TIME_SLOT (module-code CS6242) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS6242) (timings Monday-4 Monday-5)))
 
-	(make-instance [CS6244] of MODULE (module-code CS6244) (module-name "Robot Motion Planning & Control") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 2) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code CS6244) (prerequisites CS1020 MA1101R)))
+	(make-instance [CS6244] of MODULE (module-code CS6244) (module-name "Robot Motion Planning & Control") (mcs 4) (level 6) (module-prefix CS) (is-ue NO) (chain-length 0) (semesters 1))
 	(assert (EXAM_TIME_SLOT (module-code CS6244) (semester 1) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code CS6244) (timings Tuesday-2 Tuesday-3)))
 
@@ -869,14 +868,12 @@
 	(assert (EXAM_TIME_SLOT (module-code IT1005) (semester 1) (exam-time 30-nov-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code IT1005) (timings Monday-1 Monday-2 Thursday-7)))
 
-	(make-instance [IT2001] of MODULE (module-code IT2001) (module-name "Network Technology and Applications") (mcs 4) (level 2) (module-prefix IT) (is-ue NO) (chain-length 1) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code IT2001) (prerequisites CS1010)))
+	(make-instance [IT2001] of MODULE (module-code IT2001) (module-name "Network Technology and Applications") (mcs 4) (level 2) (module-prefix IT) (is-ue NO) (chain-length 0) (semesters 2))
 	(assert (MODULE_PRECLUSIONS (module-code IT2001) (preclusions CS2105)))
 	(assert (EXAM_TIME_SLOT (module-code IT2001) (semester 2) (exam-time 28-apr-evening)))
 	(assert (TIMETABLE_SLOT (module-code IT2001) (timings Friday-4 Friday-5)))
 
-	(make-instance [IT2002] of MODULE (module-code IT2002) (module-name "Database Technology and Management") (mcs 4) (level 2) (module-prefix IT) (is-ue NO) (chain-length 1) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code IT2002) (prerequisites CS1010)))
+	(make-instance [IT2002] of MODULE (module-code IT2002) (module-name "Database Technology and Management") (mcs 4) (level 2) (module-prefix IT) (is-ue NO) (chain-length 0) (semesters 2))
 	(assert (MODULE_PRECLUSIONS (module-code IT2002) (preclusions CS2102)))
 	(assert (EXAM_TIME_SLOT (module-code IT2002) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code IT2002) (timings Friday-1 Friday-2)))
@@ -931,14 +928,13 @@
 	(assert (EXAM_TIME_SLOT (module-code MA2108) (semester 2) (exam-time 26-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code MA2108) (timings Monday-4 Monday-5 Thursday-4 Thursday-5)))
 
-	(make-instance [MA2213] of MODULE (module-code MA2213) (module-name "Numerical Analysis I") (mcs 4) (level 2) (module-prefix MA) (is-ue NO) (chain-length 2) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code MA2213) (prerequisites MA1101R)))
+	(make-instance [MA2213] of MODULE (module-code MA2213) (module-name "Numerical Analysis I") (mcs 4) (level 2) (module-prefix MA) (is-ue NO) (chain-length 0) (semesters 1 2))
 	(assert (EXAM_TIME_SLOT (module-code MA2213) (semester 1) (exam-time 30-nov-morning)))
 	(assert (EXAM_TIME_SLOT (module-code MA2213) (semester 2) (exam-time 03-may-evening)))
 	(assert (TIMETABLE_SLOT (module-code MA2213) (timings Tuesday-0 Tuesday-1 Friday-0 Friday-1)))
 
 	(make-instance [MA2214] of MODULE (module-code MA2214) (module-name "Combinatorics and Graphs I") (mcs 4) (level 2) (module-prefix MA) (is-ue NO) (chain-length 2) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code MA2214) (prerequisites CS1231 MA1101R)))
+	(assert (MODULE_PREREQUISITES (module-code MA2214) (prerequisites MA1101R CS1231)))
 	(assert (EXAM_TIME_SLOT (module-code MA2214) (semester 1) (exam-time 02-dec-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code MA2214) (timings Tuesday-10 Tuesday-11 Friday-10 Friday-11)))
 
@@ -947,25 +943,23 @@
 	(assert (TIMETABLE_SLOT (module-code MA2501) (timings Monday-1 Monday-2 Wednesday-3)))
 
 	(make-instance [PC1141] of MODULE (module-code PC1141) (module-name "Introduction to Classical Mechanics") (mcs 4) (level 1) (module-prefix PC) (is-ue NO) (chain-length 1) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code PC1141) (prerequisites PC1221 PC1221X PC1222)))
+	(assert (MODULE_PREREQUISITES (module-code PC1141) (prerequisites PC1221X PC1222)))
 	(assert (MODULE_PRECLUSIONS (module-code PC1141) (preclusions PC1431 PC1433)))
 	(assert (EXAM_TIME_SLOT (module-code PC1141) (semester 1) (exam-time 30-nov-evening)))
 	(assert (TIMETABLE_SLOT (module-code PC1141) (timings Monday-8 Monday-9 Thursday-8 Thursday-9)))
 
 	(make-instance [PC1142] of MODULE (module-code PC1142) (module-name "Introduction to Thermodynamics and Optics") (mcs 4) (level 1) (module-prefix PC) (is-ue NO) (chain-length 1) (semesters 1))
-	(assert (MODULE_PREREQUISITES (module-code PC1142) (prerequisites PC1221 PC1221X PC1222)))
+	(assert (MODULE_PREREQUISITES (module-code PC1142) (prerequisites PC1221X PC1222)))
 	(assert (MODULE_PRECLUSIONS (module-code PC1142) (preclusions PC1431)))
 	(assert (EXAM_TIME_SLOT (module-code PC1142) (semester 1) (exam-time 24-nov-morning)))
 	(assert (TIMETABLE_SLOT (module-code PC1142) (timings Monday-2 Monday-3 Thursday-2 Thursday-3)))
 
-	(make-instance [PC1143] of MODULE (module-code PC1143) (module-name "Introduction to Electricity & Magnetism") (mcs 4) (level 1) (module-prefix PC) (is-ue NO) (chain-length 1) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code PC1143) (prerequisites PC1221 PC1221X PC1222 PC1222X)))
+	(make-instance [PC1143] of MODULE (module-code PC1143) (module-name "Introduction to Electricity & Magnetism") (mcs 4) (level 1) (module-prefix PC) (is-ue NO) (chain-length 0) (semesters 2))
 	(assert (MODULE_PRECLUSIONS (module-code PC1143) (preclusions PC1432)))
 	(assert (EXAM_TIME_SLOT (module-code PC1143) (semester 2) (exam-time 03-may-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code PC1143) (timings Monday-2 Monday-3 Thursday-2 Thursday-3)))
 
-	(make-instance [PC1144] of MODULE (module-code PC1144) (module-name "Introduction to Modern Physics") (mcs 4) (level 1) (module-prefix PC) (is-ue NO) (chain-length 1) (semesters 2))
-	(assert (MODULE_PREREQUISITES (module-code PC1144) (prerequisites PC1221 PC1221X PC1222 PC1222X)))
+	(make-instance [PC1144] of MODULE (module-code PC1144) (module-name "Introduction to Modern Physics") (mcs 4) (level 1) (module-prefix PC) (is-ue NO) (chain-length 0) (semesters 2))
 	(assert (MODULE_PRECLUSIONS (module-code PC1144) (preclusions PC1432)))
 	(assert (EXAM_TIME_SLOT (module-code PC1144) (semester 2) (exam-time 27-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code PC1144) (timings Tuesday-8 Tuesday-9 Friday-8 Friday-9)))
@@ -997,14 +991,14 @@
 	(assert (TIMETABLE_SLOT (module-code PC1421) (timings Monday-4 Monday-5 Thursday-4 Thursday-5)))
 
 	(make-instance [PC1431] of MODULE (module-code PC1431) (module-name "Physics IE") (mcs 4) (level 1) (module-prefix PC) (is-ue NO) (chain-length 1) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code PC1431) (prerequisites PC1221 PC1221X PC1222)))
+	(assert (MODULE_PREREQUISITES (module-code PC1431) (prerequisites PC1221X PC1222)))
 	(assert (MODULE_PRECLUSIONS (module-code PC1431) (preclusions PC1141 PC1142 PC1431 PC1433)))
 	(assert (EXAM_TIME_SLOT (module-code PC1431) (semester 1) (exam-time 24-nov-morning)))
 	(assert (EXAM_TIME_SLOT (module-code PC1431) (semester 2) (exam-time 28-apr-morning)))
 	(assert (TIMETABLE_SLOT (module-code PC1431) (timings Wednesday-4 Wednesday-5 Friday-9)))
 
 	(make-instance [PC1432] of MODULE (module-code PC1432) (module-name "Physics IIE") (mcs 4) (level 1) (module-prefix PC) (is-ue NO) (chain-length 1) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code PC1432) (prerequisites PC1221 PC1221X PC1222)))
+	(assert (MODULE_PREREQUISITES (module-code PC1432) (prerequisites PC1221X PC1222)))
 	(assert (MODULE_PRECLUSIONS (module-code PC1432) (preclusions PC1143 PC1144)))
 	(assert (EXAM_TIME_SLOT (module-code PC1432) (semester 1) (exam-time 30-nov-morning)))
 	(assert (EXAM_TIME_SLOT (module-code PC1432) (semester 2) (exam-time 29-apr-morning)))
@@ -1028,7 +1022,7 @@
 	(assert (TIMETABLE_SLOT (module-code ST2132) (timings Monday-0 Monday-1 Thursday-0 Thursday-1)))
 
 	(make-instance [ST2137] of MODULE (module-code ST2137) (module-name "Computer Aided Data Analysis") (mcs 4) (level 2) (module-prefix ST) (is-ue NO) (chain-length 1) (semesters 1 2))
-	(assert (MODULE_PREREQUISITES (module-code ST2137) (prerequisites ST2131 ST2334)))
+	(assert (MODULE_PREREQUISITES (module-code ST2137) (prerequisites ST2334 ST2131)))
 	(assert (EXAM_TIME_SLOT (module-code ST2137) (semester 1) (exam-time 26-nov-afternoon)))
 	(assert (EXAM_TIME_SLOT (module-code ST2137) (semester 2) (exam-time 04-may-afternoon)))
 	(assert (TIMETABLE_SLOT (module-code ST2137) (timings Tuesday-6 Tuesday-7 Friday-6 Friday-7)))
