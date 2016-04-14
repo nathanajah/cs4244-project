@@ -1408,6 +1408,56 @@
 	(assert (EXAM_TIME_SLOT (module-code XFC4101) (semester 2) (exam-time nil)))
 	(assert (TIMETABLE_SLOT (module-code XFC4101) (timings nil)))
 
+	(make-instance [UE1] of MODULE (module-code UE1) (module-name UE1) (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))
+	(assert (EXAM_TIME_SLOT (module-code UE1) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code UE1) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code UE1) (timings nil)))
+
+	(make-instance [UE2] of MODULE (module-code UE2) (module-name UE2) (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))
+	(assert (EXAM_TIME_SLOT (module-code UE2) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code UE2) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code UE2) (timings nil)))
+
+	(make-instance [UE3] of MODULE (module-code UE3) (module-name UE3) (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))
+	(assert (EXAM_TIME_SLOT (module-code UE3) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code UE3) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code UE3) (timings nil)))
+
+	(make-instance [UE4] of MODULE (module-code UE4) (module-name UE4) (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))
+	(assert (EXAM_TIME_SLOT (module-code UE4) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code UE4) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code UE4) (timings nil)))
+
+	(make-instance [UE5] of MODULE (module-code UE5) (module-name UE5) (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))
+	(assert (EXAM_TIME_SLOT (module-code UE5) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code UE5) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code UE5) (timings nil)))
+
+	(make-instance [UE6] of MODULE (module-code UE6) (module-name UE6) (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))
+	(assert (EXAM_TIME_SLOT (module-code UE6) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code UE6) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code UE6) (timings nil)))
+
+	(make-instance [UE7] of MODULE (module-code UE7) (module-name UE7) (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))
+	(assert (EXAM_TIME_SLOT (module-code UE7) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code UE7) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code UE7) (timings nil)))
+
+	(make-instance [UE8] of MODULE (module-code UE8) (module-name UE8) (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))
+	(assert (EXAM_TIME_SLOT (module-code UE8) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code UE8) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code UE8) (timings nil)))
+
+	(make-instance [UE9] of MODULE (module-code UE9) (module-name UE9) (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))
+	(assert (EXAM_TIME_SLOT (module-code UE9) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code UE9) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code UE9) (timings nil)))
+
+	(make-instance [UE10] of MODULE (module-code UE10) (module-name UE10) (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))
+	(assert (EXAM_TIME_SLOT (module-code UE10) (semester 1) (exam-time nil)))
+	(assert (EXAM_TIME_SLOT (module-code UE10) (semester 2) (exam-time nil)))
+	(assert (TIMETABLE_SLOT (module-code UE10) (timings nil)))
+
 )
 
  (defglobal ?*current-semester* = (make-instance [sem] of SEMESTER (max-semester-number 3)))

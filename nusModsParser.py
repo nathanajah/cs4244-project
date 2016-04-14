@@ -352,6 +352,13 @@ def writeCLIPSFile():
 			clpFile.write("\t(assert (TIMETABLE_SLOT (module-code " +str(mod) + ") (timings nil)))\n")
 
 		clpFile.write("\n")
+
+	for i in range (1, 11):
+		clpFile.write("\t(make-instance [UE" + str(i) + "] of MODULE (module-code UE" + str(i) + ") (module-name UE" + str(i) + ") (mcs 4) (level 1) (module-prefix SS) (is-ue YES) (chain-length 0) semesters(1,2))\n")
+		clpFile.write("\t(assert (EXAM_TIME_SLOT (module-code UE" + str(i) + ") (semester 1) (exam-time nil)))\n")
+		clpFile.write("\t(assert (EXAM_TIME_SLOT (module-code UE" + str(i) + ") (semester 2) (exam-time nil)))\n")
+		clpFile.write("\t(assert (TIMETABLE_SLOT (module-code UE" + str(i) + ") (timings nil)))\n\n")
+
 	clpFile.write(")\n\n (defglobal ?*current-semester* = (make-instance [sem] of SEMESTER (max-semester-number 3)))") 
 
 def main():
