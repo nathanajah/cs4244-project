@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import models.Module;
 import util.IModuleLoader;
 import util.MockModuleLoader;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Created by nathanajah on 3/17/16.
  */
-public class ModuleSelector extends GridPane {
+public class ModuleSelector extends HBox {
     @FXML
     private ListView<Module> takenView;
     @FXML

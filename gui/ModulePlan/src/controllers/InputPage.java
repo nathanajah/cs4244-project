@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import models.Module;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by nathanajah on 3/20/16.
  */
-public class InputPage extends GridPane {
+public class InputPage extends VBox {
     @FXML
     private ModuleSelector moduleSelector;
 
