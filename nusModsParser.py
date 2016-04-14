@@ -97,6 +97,17 @@ def parsePrerequisites(prerequisites):
 
 	return prereqs
 
+	# prereqs = prerequisites.split(" ")
+	# deleteList = []
+	# for word in prereqs:
+	# 	if word not in modules and word != "and" and word != "or":
+	# 		deleteList.append(word)
+
+	# for word in deleteList:
+	# 	prereqs.remove(word)
+
+	# print prereqs
+
 def parsePreclusions(preclusions):
 	global modules
 	precludes = []
@@ -157,6 +168,8 @@ def parseModule(mod):
 	names[moduleCode] = mod["ModuleTitle"]
 	MCs[moduleCode] = mod["ModuleCredit"]
 	###
+
+	print moduleCode
 
 	# module level and prefix
 	levels[moduleCode], prefix[moduleCode] = parseModuleCode(moduleCode)
@@ -264,8 +277,8 @@ def writeCLIPSFile():
 	clpFile = open("intializeModules.clp", "wb")
 	clpFile.write("(defrule initialize-modules\n\t(declare (salience 10000))\n\t=>\n")
 	for mod in modules:
-		clpFile.write("\t(make-instance [" + str(mod) + "] of MODULE (module-code " + str(mod) + ") (module-name " + str(names[mod]) 
-			+ ") (mcs " + str(MCs[mod]) + ") (level " + str(levels[mod]) + ") (module-prefix " + str(prefix[mod]) + ") (is-ue NO) (chain-length " + str(chainLengths[mod]) + ") (semesters")
+		clpFile.write("\t(make-instance [" + str(mod) + "] of MODULE (module-code " + str(mod) + ") (module-name \"" + str(names[mod]) 
+			+ "\") (mcs " + str(MCs[mod]) + ") (level " + str(levels[mod]) + ") (module-prefix " + str(prefix[mod]) + ") (is-ue NO) (chain-length " + str(chainLengths[mod]) + ") (semesters")
 		for sem in semesters[mod]:
 			clpFile.write(" " + str(sem))
 		clpFile.write("))\n")
