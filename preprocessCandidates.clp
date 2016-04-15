@@ -1,24 +1,8 @@
 ; Verification of user input;
-(defrule testing
+(defrule init
     (declare (salience 10000))
     =>
-    (make-instance [mc] of MODULE_CREDITS (credits-cleared 0))
-
-    (make-instance [CS2103T] of MODULE (module-code CS2103T) (is-ue NO) (mcs 4))
-    (make-instance [CS2101] of MODULE (module-code CS2101) (is-ue NO) (mcs 4))
-    (make-instance [CS3201] of MODULE (module-code CS3201) (is-ue NO) (mcs 4))
-    (make-instance [CS3202] of MODULE (module-code CS3202) (is-ue NO) (mcs 4))
-    
-    (make-instance of MODULE_STATUS (module-code CS2103T) (status taken))
-    (make-instance of MODULE_STATUS (module-code CS2101) (status taken))
-    (make-instance of MODULE_STATUS (module-code CS3201) (status candidate))
-    (make-instance of MODULE_STATUS (module-code CS3202) (status candidate))
-
-    (make-instance [UE1] of MODULE (module-code UE1) (is-ue YES) (mcs 4))
-    (make-instance [UE2] of MODULE (module-code UE2) (is-ue YES) (mcs 4))
-    (make-instance [UE3] of MODULE (module-code UE3) (is-ue YES) (mcs 4))
-    (make-instance [UE4] of MODULE (module-code UE4) (is-ue YES) (mcs 4))
-    )
+    (make-instance [mc] of MODULE_CREDITS (credits-cleared 0)))
 
 ; FACTS
 (deffacts foundation-modules
@@ -156,6 +140,8 @@
     (not
         (or
             (object (is-a MODULE_STATUS) (module-code CS1010) (status candidate|taken))
+            (object (is-a MODULE_STATUS) (module-code CS1010J) (status candidate|taken))
+            (object (is-a MODULE_STATUS) (module-code CS1010X) (status candidate|taken))
             (object (is-a MODULE_STATUS) (module-code CS1101S) (status candidate|taken))
             ))
     =>
@@ -410,6 +396,7 @@
         ))
 
 ; Adding UEs
+
 (defrule module-credits-sum
     (declare(salience 101))
     ?module-credits <- (object (is-a MODULE_CREDITS))
