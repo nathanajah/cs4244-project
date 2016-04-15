@@ -23,7 +23,7 @@ public class MainPage extends StackPane {
     private InputPage inputPage;
 
     @FXML
-    private ResultPage resultPage;
+    private ResultPage2 resultPage;
 
     private IAnalyzer analyzer;
 
@@ -35,10 +35,11 @@ public class MainPage extends StackPane {
     public void analyze(ActionEvent event) {
         List<Module> takenModules = inputPage.getTakenModules();
         List<Module> futureModules = inputPage.getFutureModules();
+        List<Module> availableModules = inputPage.getAvailableModules();
         int semesters = inputPage.getSemesters();
 
         try {
-            Map<Module, Integer> semesterMappings = analyzer.analyze(takenModules, futureModules, semesters);
+            Map<Module, Integer> semesterMappings = analyzer.analyze(takenModules, futureModules, availableModules, semesters);
             resultPage.setSemesterMapping(FXCollections.observableMap(semesterMappings));
             inputPage.clearError();
             inputPage.setVisible(false);

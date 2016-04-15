@@ -70,6 +70,10 @@ public class InputPage extends VBox {
         return moduleSelector.getTakenModules();
     }
 
+    public List<Module> getAvailableModules() {
+        return moduleSelector.getAvailableModules();
+    }
+
     /**
      * Return the number of semesters left.
      *

@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class Analyzer implements IAnalyzer {
     @Override
-    public Map<Module, Integer> analyze(List<Module> taken, List<Module> future, int semesters) throws PreprocessException {
+    public Map<Module, Integer> analyze(List<Module> taken, List<Module> future, List<Module> available, int semesters) throws PreprocessException {
         Environment env = new Environment();
         env.load("../../templates.clp");
         env.reset();
@@ -30,6 +30,7 @@ public class Analyzer implements IAnalyzer {
         for (Module module : future) {
             env.makeInstance("([" + module.getCode() + "_STATUS] of MODULE_STATUS (module-code " + module.getCode() + ") (status candidate))");
         }
+        env.makeInstance("([sem] of SEMESTER (max-semester-number " + semesters + "))");
         env.run();
         MultifieldValue mv = (MultifieldValue)env.eval("(find-all-facts((?f ERROR)) TRUE)");
         int num = mv.size();
@@ -42,7 +43,7 @@ public class Analyzer implements IAnalyzer {
                 } catch (Exception e) {
                 }
             }
-            throw new PreprocessException(messages);
+    //        throw new PreprocessException(messages);
         }
 
         env.load("../../selectModules.clp");
@@ -63,6 +64,9 @@ public class Analyzer implements IAnalyzer {
             }
         }
         for (Module module : future) {
+            md.put(module, mdcode.get(module.getCode()));
+        }
+        for (Module module : available) {
             md.put(module, mdcode.get(module.getCode()));
         }
 

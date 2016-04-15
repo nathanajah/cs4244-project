@@ -147,6 +147,9 @@ public class ModuleSelector extends HBox {
         return new ArrayList<>(futureModules);
     }
 
+    public List<Module> getAvailableModules() {
+        return new ArrayList<>(availableModules);
+    }
     /**
      * Resets the interface.
      */
