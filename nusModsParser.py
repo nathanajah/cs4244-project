@@ -1,5 +1,6 @@
 import json
 import pprint
+import re
 
 modules = []
 names = {}
@@ -65,7 +66,7 @@ def isScienceModule(moduleCode):
 	return False
 
 def isRelevantModule(mod):
-	if mod['Department'] == 'Computer Science' or mod['Department'] == 'Dean\'s Office (School Of Computing)':
+	if mod['Department'] == 'Computer Science' or mod['Department'] == 'Dean\'s Office (School Of Computing)' or mod['Department'] == "Information Systems":
 		return True
 
 	if isScienceModule(mod['ModuleCode']):
@@ -87,26 +88,69 @@ def parseModuleCode(moduleCode):
 
 	return (level, prefix)
 
-
 def parsePrerequisites(prerequisites):
-	global modules
-	prereqs = []
-	for mod in modules:
-		if mod in prerequisites:
-			prereqs.append(mod)
+	prerequisites = re.sub("[().!,]","",prerequisites)
+	prereqs = prerequisites.split(" ")
+	deleteList = []
+	for word in prereqs:
+		if word not in modules and word != "and":
+			deleteList.append(word)
 
-	return prereqs
+	for word in deleteList:
+		prereqs.remove(word)
 
-	# prereqs = prerequisites.split(" ")
-	# deleteList = []
-	# for word in prereqs:
-	# 	if word not in modules and word != "and" and word != "or":
-	# 		deleteList.append(word)
+	parsedPrereq = ""
 
-	# for word in deleteList:
-	# 	prereqs.remove(word)
+	for word in prereqs:
+		parsedPrereq += word
+		parsedPrereq += " "
+	###
 
-	# print prereqs
+	# split the prereqs by and, remove empty spaces
+	deleteList = []
+	splitPrereqs = parsedPrereq.split("and")
+	for word in splitPrereqs:
+		if len(word) < 2:
+			deleteList.append(word)
+
+	for word in deleteList:
+		splitPrereqs.remove(word)
+
+	for i in range(0, len(splitPrereqs)):
+		splitPrereqs[i] = splitPrereqs[i].strip()
+	###
+
+	finalPrereq = []
+
+	for l in splitPrereqs:
+		finalPrereq.append(l.split(" "))
+
+	# Replacing mods with all equivalent modules
+	equivalentModules = [["CS1010", "CS1010E", "CS1010J", "CS1010R", "CS1010S", "CS1010X", "CS1101S"],
+						["CS1020", "CS1020E", "CS2020"],
+						["CS2010", "CS2020"],
+						["CS2103", "CS2103T"]]
+
+	for group in finalPrereq:
+		replace = [False, False, False, False]
+		deleteList = []
+		for i in range(0, 4):
+			for mod in group:
+				if mod in equivalentModules[i]:
+					deleteList.append(mod)
+					replace[i] = True
+		for mod in deleteList:
+			try:
+				group.remove(mod)
+			except ValueError:
+				continue
+		for i in range(0, 4):
+			if replace[i]:
+				for mod in equivalentModules[i]:
+					group.append(mod)
+		group = list(set(group))
+	###
+	return finalPrereq
 
 def parsePreclusions(preclusions):
 	global modules
@@ -169,8 +213,6 @@ def parseModule(mod):
 	MCs[moduleCode] = mod["ModuleCredit"]
 	###
 
-	print moduleCode
-
 	# module level and prefix
 	levels[moduleCode], prefix[moduleCode] = parseModuleCode(moduleCode)
 	###
@@ -216,7 +258,6 @@ def computeChainLengths():
 		for mod in modules:
 			if chainLengths.has_key(mod):
 				continue
-
 			prereq = prerequisites[mod]
 			if len(prereq) == 0:
 				chainLengths[mod] = 0
@@ -225,7 +266,8 @@ def computeChainLengths():
 				try:
 					maxChainLength = 0
 					for pr in prereq:
-						maxChainLength = max(maxChainLength, chainLengths[pr])
+						for p in pr:
+							maxChainLength = max(maxChainLength, chainLengths[p])
 					chainLengths[mod] = maxChainLength+1
 					resolved+=1
 
@@ -286,10 +328,11 @@ def writeCLIPSFile():
 		# clpFile.write("\t(make-instance of MODULE_STATUS (module-code " + str(mod) + ") (status candidate))\n")
 
 		if len(prerequisites[mod]) > 0:
-			clpFile.write("\t(assert (MODULE_PREREQUISITES (module-code " + str(mod) + ") (prerequisites")
 			for prereq in prerequisites[mod]:
-				clpFile.write(" " + str(prereq))
-			clpFile.write(")))\n")
+				clpFile.write("\t(assert (MODULE_PREREQUISITES (module-code " + str(mod) + ") (prerequisites")
+				for pr in prereq:
+					clpFile.write(" " + str(pr))
+				clpFile.write(")))\n")
 
 		if len(preclusions[mod]) > 0:
 			clpFile.write("\t(assert (MODULE_PRECLUSIONS (module-code " + str(mod) + ") (preclusions")
@@ -310,6 +353,7 @@ def writeCLIPSFile():
 
 		clpFile.write("\n")
 
+<<<<<<< HEAD
 	# write UE modules
 	for i in range(1, 11):
 		clpFile.write("\t(make-instance [UE" + str(i) + "] of MODULE (module-code UE" + str(i) + ") (is-ue YES) (chain-length 0) (mcs 4) (semesters 1 2))\n")
