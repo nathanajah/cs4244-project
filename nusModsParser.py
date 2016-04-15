@@ -280,6 +280,24 @@ def computeChainLengths():
 
 	return
 
+def computeChainLengths2():
+	def findChainLength(modA):
+		if modA in chainLengths:
+			return chainLengths[modA]
+
+		maxChainLength = 0
+		for modB in modules:
+			prereqB = prerequisites[modB]
+			for pr in prereqB:
+				if modA in pr: # modA is a prereq of modB
+					maxChainLength = max(maxChainLength, findChainLength(modB) + 1)
+
+		chainLengths[modA] = maxChainLength
+		return maxChainLength
+
+	for mod in modules:
+		findChainLength(mod)
+
 def parseModuleInfo():
 	global modules
 	with open('moduleInformation.json') as data_file:    
@@ -295,7 +313,7 @@ def parseModuleInfo():
 		if mod['ModuleCode'] in modules:
 			parseModule(mod)
 
-	computeChainLengths()
+	computeChainLengths2()
 
 def parseTimetableInfo():
 	global timetables
