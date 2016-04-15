@@ -1,10 +1,10 @@
 <?import javafx.scene.layout.*?>
 <?import controllers.InputPage?>
-<?import controllers.ResultPage?>
+<?import controllers.ResultPage2?>
 <fx:root type="javafx.scene.layout.StackPane"
          xmlns:fx="http://javafx.com/fxml"
          alignment="center"
 >
-    <ResultPage fx:id="resultPage" visible="false" onBack="#backFromResult"></ResultPage>
+    <ResultPage2 fx:id="resultPage" visible="false" onBack="#backFromResult"></ResultPage2>
     <InputPage fx:id="inputPage" onAnalyze="#analyze" visible="true"></InputPage>
 </fx:root>

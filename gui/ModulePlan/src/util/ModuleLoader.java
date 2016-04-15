@@ -2,9 +2,18 @@ package util;
 
 import models.Module;
 import net.sf.clipsrules.jni.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by nathanajah on 4/12/16.
@@ -24,17 +33,11 @@ public class ModuleLoader implements IModuleLoader{
             InstanceAddressValue x = (InstanceAddressValue)env.eval("(instance-address " + name.instanceNameValue() + ")");
             Module module = new Module();
             String moduleCode = ((LexemeValue)x.directGetSlot("module-code")).lexemeValue();
+            String moduleName = ((LexemeValue)x.directGetSlot("module-name")).lexemeValue();
+            String moduleLevel = String.valueOf(((IntegerValue)x.directGetSlot("level")).intValue());
             module.setCode(moduleCode);
-            System.out.println(moduleCode);
-            module.setName("");
-            String level = "";
-            for (int j = 0; j < moduleCode.length(); j++) {
-                if (Character.isDigit(moduleCode.charAt(j))) {
-                    level = moduleCode.substring(j, j + 1);
-                    break;
-                }
-            }
-            module.setLevel(level);
+            module.setName(moduleName);
+            module.setLevel(moduleLevel);
             modules.add(module);
         }
         return modules;

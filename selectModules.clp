@@ -103,7 +103,7 @@
 
 ; Check modules can be applied to current semester
 (defrule reset-module-semester
-    (declare (salience 10))
+    (declare (salience 11))
     ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (status candidate))
     =>
     (send ?module-status put-fulfilled-semester NO))

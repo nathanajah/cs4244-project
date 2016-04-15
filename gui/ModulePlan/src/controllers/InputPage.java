@@ -6,8 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import models.Module;
 
 import java.io.IOException;
@@ -16,15 +18,22 @@ import java.util.List;
 /**
  * Created by nathanajah on 3/20/16.
  */
-public class InputPage extends GridPane {
+public class InputPage extends VBox {
     @FXML
     private ModuleSelector moduleSelector;
 
     @FXML
     private TextField semesters;
 
+    @FXML
+    private Label errorLabel;
+
+    @FXML
+    private VBox errorVBox;
+
     /**
      * onAction handler for the analyze button.
+     *
      * @param event The ActionEvent from the button click.
      */
     @FXML
@@ -35,6 +44,7 @@ public class InputPage extends GridPane {
     /**
      * onAction handler for the Reset button.
      * Resets the moduleSelector.
+     *
      * @param event The ActionEvent from the button click.
      */
     @FXML
@@ -44,6 +54,7 @@ public class InputPage extends GridPane {
 
     /**
      * Return the modules that the student wants to take.
+     *
      * @return The modules that the student wants to take.
      */
     public List<Module> getFutureModules() {
@@ -52,14 +63,20 @@ public class InputPage extends GridPane {
 
     /**
      * Return the modules that the student has taken.
+     *
      * @return The modules that the student has taken.
      */
     public List<Module> getTakenModules() {
         return moduleSelector.getTakenModules();
     }
 
+    public List<Module> getAvailableModules() {
+        return moduleSelector.getAvailableModules();
+    }
+
     /**
      * Return the number of semesters left.
+     *
      * @return The number of semesters left.
      */
     public int getSemesters() {
@@ -75,6 +92,20 @@ public class InputPage extends GridPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    public void setError(String[] messages) {
+        errorVBox.setVisible(true);
+        StringBuilder x = new StringBuilder();
+        for (String message : messages) {
+            x.append(message);
+            x.append("\n");
+        }
+        errorLabel.setText(x.toString());
+    }
+
+    public void clearError() {
+        errorVBox.setVisible(false);
     }
 
     private ObjectProperty<EventHandler<ActionEvent>> propertyOnAnalyze = new SimpleObjectProperty<>();

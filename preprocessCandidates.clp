@@ -1,58 +1,24 @@
 ; Verification of user input;
-; TESTING
-; (defrule initialize-modules
-;     (declare (salience 10000))
-;     =>
-;     (make-instance of MODULE (module-code CS3241) (module-prefix CS) (level 3))
-;     (make-instance of MODULE (module-code CS3242) (module-prefix CS) (level 3))
-;     (make-instance of MODULE (module-code CS3247) (module-prefix CS) (level 3))
-;     (make-instance of MODULE (module-code CS4247) (module-prefix CS) (level 4))
-;     (make-instance of MODULE (module-code CS4350) (module-prefix CS) (level 4))
+(defrule testing
+    (declare (salience 10000))
+    =>
+    (make-instance [mc] of MODULE_CREDITS (credits-cleared 0))
 
-;     (make-instance of MODULE (module-code CS2103T) (module-prefix CS) (level 2))
-;     (make-instance of MODULE (module-code CS3213) (module-prefix CS) (level 3))
-;     (make-instance of MODULE (module-code CS3219) (module-prefix CS) (level 3))
-;     (make-instance of MODULE (module-code CS4211) (module-prefix CS) (level 4))
-;     (make-instance of MODULE (module-code CS4218) (module-prefix CS) (level 4))
-
-;     (make-instance of MODULE_STATUS (module-code CS3241))
-;     (make-instance of MODULE_STATUS (module-code CS3242))
-;     (make-instance of MODULE_STATUS (module-code CS3247) (status candidate))
-;     (make-instance of MODULE_STATUS (module-code CS4247) (status taken))
-;     (make-instance of MODULE_STATUS (module-code CS4350) (status candidate))
-
-;     (make-instance of MODULE_STATUS (module-code CS3213))
-;     (make-instance of MODULE_STATUS (module-code CS3219))
-;     (make-instance of MODULE_STATUS (module-code CS4211) (status taken))
-;     (make-instance of MODULE_STATUS (module-code CS4218))
-
-;     (make-instance of MODULE_STATUS (module-code CS1231) (status candidate))
-;     (make-instance of MODULE_STATUS (module-code CS2100) (status taken))
-;     (make-instance of MODULE_STATUS (module-code CS2103T))
-;     (make-instance of MODULE_STATUS (module-code CS2105))
-;     (make-instance of MODULE_STATUS (module-code CS2106))
-;     (make-instance of MODULE_STATUS (module-code CS3230))
-;     (make-instance of MODULE_STATUS (module-code IS1103))
-;     (make-instance of MODULE_STATUS (module-code CS2101))
-;     (make-instance of MODULE_STATUS (module-code ES2660))
-;     (make-instance of MODULE_STATUS (module-code MA1301))
-;     (make-instance of MODULE_STATUS (module-code MA1521))
-;     (make-instance of MODULE_STATUS (module-code MA1101R))
+    (make-instance [CS2103T] of MODULE (module-code CS2103T) (is-ue NO) (mcs 4))
+    (make-instance [CS2101] of MODULE (module-code CS2101) (is-ue NO) (mcs 4))
+    (make-instance [CS3201] of MODULE (module-code CS3201) (is-ue NO) (mcs 4))
+    (make-instance [CS3202] of MODULE (module-code CS3202) (is-ue NO) (mcs 4))
     
-;     (make-instance of MODULE_STATUS (module-code CS1010) (status taken))
-;     (make-instance of MODULE_STATUS (module-code CS1101S))
-;     (make-instance of MODULE_STATUS (module-code CS1020) (status taken))
-;     (make-instance of MODULE_STATUS (module-code CS2010) (status candidate))
-;     (make-instance of MODULE_STATUS (module-code CS2020) (status candidate))
-;     (assert (MODULE_PRECLUSIONS (module-code CS1010) (preclusions CG1101 CS1010E CS1010FC CS1010S CS1101 CS1101C CS1101S)))
-;     (assert  (MODULE_PRECLUSIONS (module-code CS1020) (preclusions CG1102 CG1103 CS1020E CS1102 CS1102C CS1102S CS2020)))
-;     (assert (MODULE_PRECLUSIONS (module-code CS1231) (preclusions MA1100)))
+    (make-instance of MODULE_STATUS (module-code CS2103T) (status taken))
+    (make-instance of MODULE_STATUS (module-code CS2101) (status taken))
+    (make-instance of MODULE_STATUS (module-code CS3201) (status candidate))
+    (make-instance of MODULE_STATUS (module-code CS3202) (status candidate))
 
-;     (make-instance of MODULE_STATUS (module-code CS3233) (status candidate))
-;     (make-instance of MODULE_STATUS (module-code CS2102) (status candidate))
-;     (assert (MODULE_PREREQUISITES (module-code CS3233) (prerequisites CS2010 CS2020)))
-;     (assert (MODULE_PREREQUISITES (module-code CS3233) (prerequisites CS2102 CS2102S)))
-;     )
+    (make-instance [UE1] of MODULE (module-code UE1) (is-ue YES) (mcs 4))
+    (make-instance [UE2] of MODULE (module-code UE2) (is-ue YES) (mcs 4))
+    (make-instance [UE3] of MODULE (module-code UE3) (is-ue YES) (mcs 4))
+    (make-instance [UE4] of MODULE (module-code UE4) (is-ue YES) (mcs 4))
+    )
 
 ; FACTS
 (deffacts foundation-modules
@@ -163,13 +129,15 @@
 
 ; Check foundation modules with no alternatives
 ; If the module is not taken and not intended to be taken then choose as candidate module
-(defrule foundation-check
-    (foundation ?module-code)
-    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (status ~candidate&~taken))
-    =>
-    (send ?module-status put-status candidate))
+; (defrule foundation-check
+;     (declare (salience 103))
+;     (foundation ?module-code)
+;     ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (status ~candidate&~taken))
+;     =>
+;     (send ?module-status put-status candidate))
 
 (defrule foundation-add
+    (declare (salience 103))
     (foundation ?module-code)
     (not (object (is-a MODULE_STATUS) (module-code ?module-code) (status candidate|taken)))
     =>
@@ -184,6 +152,7 @@
 ; Physics
 ; Science
 (defrule foundation-check-CS1010
+    (declare (salience 103))
     (not
         (or
             (object (is-a MODULE_STATUS) (module-code CS1010) (status candidate|taken))
@@ -191,9 +160,10 @@
             ))
     =>
     (printout t "Missing CS1010 or CS1101S" crlf)
-    (assert (error "Missing CS1010 or CS1101S")))
+    (assert (ERROR (message "Missing CS1010 or CS1101S"))))
 
 (defrule foundation-check-CS2010
+    (declare (salience 103))
     (not
         (or 
             (object (is-a MODULE_STATUS) (module-code CS2020) (status candidate|taken))
@@ -203,9 +173,10 @@
                 )))
     =>
     (printout t "Missing (CS1020 and CS2010) or CS2020" crlf)
-    (assert (error "Missing (CS1020 and CS2010) or CS2020")))
+    (assert (ERROR (message "Missing (CS1020 and CS2010) or CS2020"))))
 
 (defrule foundation-check-physics
+    (declare (salience 103))
     (not
         (or 
             (object (is-a MODULE_STATUS) (module-code PC1221) (status candidate|taken))
@@ -213,9 +184,10 @@
             ))
     =>
     (printout t "Missing PC1221 or PC1222" crlf)
-    (assert (error "Missing PC1221 or PC1222")))
+    (assert (ERROR (message "Missing PC1221 or PC1222"))))
 
 (defrule foundation-check-statistics
+    (declare (salience 103))
     (not 
         (or 
             (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken))
@@ -225,9 +197,10 @@
                 )))
     =>
     (printout t "Missing ST2334 or (ST2131 and ST2132)" crlf)
-    (assert (error "Missing ST2334 or (ST2131 and ST2132)")))
+    (assert (ERROR (message "Missing ST2334 or (ST2131 and ST2132)"))))
 
 (defrule foundation-check-science
+    (declare (salience 103))
     (not
         (exists
             (science ?module-code)
@@ -235,9 +208,10 @@
             ))
     =>
     (printout t "Missing Science module" crlf)
-    (assert (error "Missing Science module")))
+    (assert (ERROR (message "Missing Science module"))))
 
 (defrule foundation-check-science-1A
+    (declare (salience 103))
     (not (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken)))
     (object (is-a MODULE_STATUS) (module-code PC1221) (status candidate|taken))
     (not (object (is-a MODULE_STATUS) (module-code PC1222) (status candidate|taken)))
@@ -249,9 +223,10 @@
             ))
     =>
     (printout t "Missing 1A Science module" crlf)
-    (assert (error "Missing 1A Science module")))
+    (assert (ERROR (message "Missing 1A Science module"))))
 
 (defrule foundation-check-science-1B
+    (declare (salience 103))
     (not (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken)))
     (object (is-a MODULE_STATUS) (module-code PC1222) (status candidate|taken))
     (not (object (is-a MODULE_STATUS) (module-code PC1221) (status candidate|taken)))
@@ -263,9 +238,10 @@
             ))
     =>
     (printout t "Missing 1B Science module" crlf)
-    (assert (error "Missing 1B Science module")))
+    (assert (ERROR (message "Missing 1B Science module"))))
 
 (defrule foundation-check-science-1C
+    (declare (salience 103))
     (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken))
     (object (is-a MODULE_STATUS) (module-code PC1222) (status candidate|taken))
     (object (is-a MODULE_STATUS) (module-code PC1221) (status candidate|taken))
@@ -277,9 +253,10 @@
             ))
     =>
     (printout t "Missing 1C Science module" crlf)
-    (assert (error "Missing 1C Science module")))
+    (assert (ERROR (message "Missing 1C Science module"))))
 
 (defrule foundation-check-science-2A
+    (declare (salience 103))
     (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken))
     (object (is-a MODULE_STATUS) (module-code PC1221) (status candidate|taken))
     (not (object (is-a MODULE_STATUS) (module-code PC1222) (status candidate|taken)))
@@ -294,9 +271,10 @@
 
     =>
     (printout t "Missing 2A Science module" crlf)
-    (assert (error "Missing 2A Science module")))
+    (assert (ERROR (message "Missing 2A Science module"))))
 
 (defrule foundation-check-science-2B
+    (declare (salience 103))
     (object (is-a MODULE_STATUS) (module-code ST2334) (status candidate|taken))
     (object (is-a MODULE_STATUS) (module-code PC1222) (status candidate|taken))
     (not (object (is-a MODULE_STATUS) (module-code PC1221) (status candidate|taken)))
@@ -310,10 +288,11 @@
             ))
     =>
     (printout t "Missing 2B Science module" crlf)
-    (assert (error "Missing 2B Science module")))
+    (assert (ERROR (message "Missing 2B Science module"))))
 
 ; Check focus area
 (defrule focus-area-check
+    (declare (salience 103))
     (not
         (exists
             (MODULE_FOCUS (area ?area) (module-code ?module-code-1))
@@ -325,10 +304,11 @@
             (object (is-a MODULE) (module-code ?module-code-1|?module-code-2|?module-code-3) (level ?level&:(>= ?level 4)))))
     =>
     (printout t "Missing Focus Area" crlf)
-    (assert (error "Missing Focus Area")))
+    (assert (ERROR (message "Missing Focus Area"))))
 
 ; Team project modules
 (defrule team-project-check
+    (declare (salience 103))
     (not
         (or
             (and
@@ -346,10 +326,11 @@
             ))
     =>
     (printout t "Missing Team Project" crlf)
-    (assert (error "Missing Team Project")))
+    (assert (ERROR (message "Missing Team Project"))))
 
 ; Industry experience requirement
 (defrule industry-experience-check
+    (declare (salience 103))
     (not
         (or
             (and
@@ -362,10 +343,11 @@
     ; CP3200 and an Industry Course e.g. CP3101A
     =>
     (printout t "Missing Industry Experience" crlf)
-    (assert (error "Missing Industry Experience")))
+    (assert (ERROR (message "Missing Industry Experience"))))
 
 ; 12 MCS level 4k and above
 (defrule level-4000-check
+    (declare (salience 103))
     (not
         (and
             (object (is-a MODULE_STATUS) (module-code ?module-code-1) (status candidate|taken))
@@ -377,10 +359,11 @@
             ))
     =>
     (printout t "Missing level-4000 CS modules" crlf)
-    (assert (error "Missing level-4000 CS modules")))
+    (assert (ERROR (message "Missing level-4000 CS modules"))))
 
 ; Preclusions check
 (defrule preclusions-check
+    (declare (salience 102))
     (object (is-a MODULE_STATUS) (module-code ?module-code) (status taken|candidate))
     (MODULE_PRECLUSIONS (module-code ?module-code) (preclusions $?preclusions))
     =>
@@ -392,15 +375,18 @@
                 (or
                     (eq ?preclu:status taken)
                     (eq ?preclu:status candidate)
-                    )))
+                )
+                (neq ?preclu-module-code ?module-code)
+                ))
             then 
                 (printout t (str-cat ?module-code " failed preclusion check") crlf)
-                (assert (error (str-cat ?module-code " failed preclusion check")))
+                (assert (ERROR (message (str-cat ?module-code " failed preclusion check"))))
                 (break)
                 )))
 
 ; Prerequisites check
 (defrule prerequisites-check
+    (declare (salience 102))
     (object (is-a MODULE_STATUS) (module-code ?module-code) (status taken|candidate))
     (MODULE_PREREQUISITES (module-code ?module-code) (prerequisites $?prerequisites))
     =>
@@ -420,8 +406,22 @@
     (if (eq ?count 0)
         then
             (printout t (str-cat ?module-code " failed prerequisites check") crlf)
-            (assert (error (str-cat ?module-code " failed prerequisites check")))
+            (assert (ERROR (message (str-cat ?module-code " failed prerequisites check"))))
         ))
 
-; TODO
-; CHECK NUMBER OF MCS
+; Adding UEs
+(defrule module-credits-sum
+    (declare(salience 101))
+    ?module-credits <- (object (is-a MODULE_CREDITS))
+    (object (is-a MODULE_STATUS) (module-code ?module-code) (status taken|candidate))
+    (object (is-a MODULE) (module-code ?module-code) (mcs ?mcs))
+    =>
+    (send ?module-credits add-credits-cleared ?mcs))
+
+(defrule add-ues
+    (declare (salience 100))
+    ?module-credits <- (object (is-a MODULE_CREDITS) (credits-cleared ?credits-cleared&:(< ?credits-cleared 160)))
+    (object (is-a MODULE) (module-code ?module-code) (is-ue YES) (mcs ?mcs))
+    (not (object (is-a MODULE_STATUS) (module-code ?module-code) (status taken|candidate)))
+    =>
+    (make-instance of MODULE_STATUS (module-code ?module-code) (status candidate))   )

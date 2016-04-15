@@ -12,7 +12,7 @@ import java.util.Map;
 public class MockAnalyzer implements IAnalyzer {
 
     @Override
-    public Map<Module, Integer> analyze(List<Module> taken, List<Module> future, int semesters) {
+    public Map<Module, Integer> analyze(List<Module> taken, List<Module> future, List<Module> available, int semesters) {
         Map<Module, Integer> semesterMapping = new HashMap<Module, Integer>();
         for (Module module : taken) {
             semesterMapping.put(module, 1);

@@ -1,13 +1,18 @@
 package controllers;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 import models.Module;
 import util.IModuleLoader;
 import util.MockModuleLoader;
@@ -21,7 +26,7 @@ import java.util.List;
 /**
  * Created by nathanajah on 3/17/16.
  */
-public class ModuleSelector extends GridPane {
+public class ModuleSelector extends HBox {
     @FXML
     private ListView<Module> takenView;
     @FXML
@@ -29,9 +34,13 @@ public class ModuleSelector extends GridPane {
     @FXML
     private ListView<Module> futureView;
 
+    @FXML
+    private TextField searchField;
+
     private ObservableList<Module> takenModules = FXCollections.observableArrayList();
     private ObservableList<Module> futureModules = FXCollections.observableArrayList();
     private ObservableList<Module> availableModules = FXCollections.observableArrayList();
+    private ObservableList<Module> filteredAvailableModules = FXCollections.observableArrayList();
     private List<Module> moduleList = new ArrayList<Module>();
 
     private DataFormat moduleDataFormat = new DataFormat("module");
@@ -39,6 +48,7 @@ public class ModuleSelector extends GridPane {
     /**
      * Generate the onDragDetected EventHandler for a list.
      * The handler will create a Dragboard and put the module data inside the content.
+     *
      * @param list The list that we want to watch.
      * @return The onDragDetected EventHandler.
      */
@@ -58,6 +68,7 @@ public class ModuleSelector extends GridPane {
     /**
      * Generate the onDragOver EventHandler for a list.
      * The handler will check if the source is not the same as this list, and accept the transfer.
+     *
      * @param list The list that we want to watch.
      * @return The onDragOver EventHandler.
      */
@@ -76,6 +87,7 @@ public class ModuleSelector extends GridPane {
      * Generate the onDragDropped EventHandler for a list.
      * The handler will remove the module from the source list, and add it into the new list.
      * It will also re-sort the list.
+     *
      * @param list The list that we want to watch.
      * @return The onDragDropped EventHandler.
      */
@@ -83,9 +95,9 @@ public class ModuleSelector extends GridPane {
         return event -> {
             Dragboard db = event.getDragboard();
             boolean success = false;
-            if (db.hasContent(moduleDataFormat)){
-                Module module = (Module)db.getContent(moduleDataFormat);
-                ObservableList<Module> originalList = ((ListView<Module>)event.getGestureSource()).getItems();
+            if (db.hasContent(moduleDataFormat)) {
+                Module module = (Module) db.getContent(moduleDataFormat);
+                ObservableList<Module> originalList = ((ListView<Module>) event.getGestureSource()).getItems();
                 list.getItems().add(module);
                 originalList.remove(module);
                 Collections.sort(list.getItems());
@@ -109,12 +121,32 @@ public class ModuleSelector extends GridPane {
         reset();
     }
 
+    class AvailableCell extends ListCell<Module> {
+        @Override
+        public void updateItem(Module item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                setText(item.toString());
+            }
+        }
+    }
     /**
      * Attach the EventHandlers to the ListViews.
      */
     private void attachViews() {
         takenView.setItems(takenModules);
-        availableView.setItems(availableModules);
+        availableView.setCellFactory(new Callback<ListView<Module>, ListCell<Module>>() {
+            public ListCell<Module> call(ListView<Module> list) {
+                AvailableCell cell = new AvailableCell();
+                cell.getStyleClass().add("highlighted");
+                return cell;
+            }
+        });
+
+        availableView.setItems(filteredAvailableModules);
         futureView.setItems(futureModules);
 
         takenView.setOnDragDetected(generateOnDragDetectedHandler(takenView));
@@ -146,6 +178,9 @@ public class ModuleSelector extends GridPane {
         return new ArrayList<>(futureModules);
     }
 
+    public List<Module> getAvailableModules() {
+        return new ArrayList<>(availableModules);
+    }
     /**
      * Resets the interface.
      */
@@ -153,6 +188,7 @@ public class ModuleSelector extends GridPane {
         takenModules.setAll();
         futureModules.setAll();
         availableModules.setAll(moduleList);
+        filteredAvailableModules.setAll(moduleList);
     }
 
     public ModuleSelector() {
@@ -163,6 +199,37 @@ public class ModuleSelector extends GridPane {
             loader.load();
             loadModules();
             attachViews();
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredAvailableModules.setAll();
+                for (Module module : availableModules) {
+                    if (module.getCode().contains(newValue) || module.getName().contains(newValue)) {
+                        filteredAvailableModules.add(module);
+                    }
+                }
+            });
+
+            filteredAvailableModules.addListener(new ListChangeListener<Module>(){
+
+                @Override
+                public void onChanged(Change<? extends Module> change) {
+                    while (change.next()) {
+                        for (Module remModule : change.getRemoved()) {
+                            if (takenModules.contains(remModule)) {
+                                availableModules.remove(remModule);
+                            }
+                            if (futureModules.contains(remModule)) {
+                                availableModules.remove(remModule);
+                            }
+                        }
+                        for (Module addModule : change.getAddedSubList()) {
+                            if (!availableModules.contains(addModule)) {
+                                availableModules.add(addModule);
+
+                            }
+                        }
+                    }
+                }
+            });
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }

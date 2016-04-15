@@ -1,26 +1,30 @@
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
-<fx:root type="javafx.scene.layout.GridPane"
+<?import javafx.scene.layout.HBox?>
+<?import com.sun.javafx.scene.control.skin.InputField?>
+<?import javafx.scene.control.TextField?>
+<fx:root type="javafx.scene.layout.HBox"
          xmlns:fx="http://javafx.com/fxml"
          alignment="center"
-         hgap="10"
-         vgap="10"
+         spacing="10"
         >
-    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0">
-        <Label text="Modules taken:"></Label>
-        <ListView fx:id="takenView">
-        </ListView>
+    <VBox HBox.hgrow="ALWAYS">
+        <VBox>
+            <Label text="Modules taken:"></Label>
+            <ListView fx:id="takenView">
+            </ListView>
+        </VBox>
+        <VBox >
+            <Label text="Modules that you want to take:"></Label>
+            <ListView fx:id="futureView">
+            </ListView>
+        </VBox>
     </VBox>
-    <VBox GridPane.rowIndex="1" GridPane.columnIndex="0">
-        <Label text="Modules that you want to take:"></Label>
-        <ListView fx:id="futureView">
-        </ListView>
-    </VBox>
-    <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.rowSpan="2">
+    <VBox HBox.hgrow="ALWAYS" spacing="5">
         <Label text="Modules available:"></Label>
-        <ListView fx:id="availableView">
+        <ListView fx:id="availableView" VBox.vgrow="ALWAYS">
         </ListView>
+        <TextField promptText="Search..." fx:id="searchField"></TextField>
     </VBox>
 </fx:root>

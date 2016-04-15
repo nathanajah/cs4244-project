@@ -4,7 +4,7 @@
     (slot module-code
         (type SYMBOL))
     (slot module-name
-        (type STRING))
+        (type SYMBOL))
     (slot mcs
         (type INTEGER))
     (slot chain-length
@@ -40,6 +40,9 @@
 (deftemplate MODULE_FOCUS
     (slot module-code)
     (slot area))
+
+(deftemplate ERROR
+    (slot message))
 
 (defclass MODULE_STATUS
     (is-a USER)
@@ -109,9 +112,10 @@
     (if (eq ?timing nil) then (bind ?is-free TRUE))
     return ?is-free)
 
-(defmessage-handler SEMESTER add-current-mcs(?mcs)
-    (bind ?self:current-mc-count (+ ?self:current-mc-count ?mcs)))
+(defclass MODULE_CREDITS
+    (is-a USER)
+    (slot credits-cleared
+        (type INTEGER) (default 0)))
 
-
-(defmessage-handler SEMESTER add-total-mcs(?mcs)
-    (bind ?self:total-mc-count (+ ?self:total-mc-count ?mcs)))
+(defmessage-handler MODULE_CREDITS add-credits-cleared(?i)
+    (bind ?self:credits-cleared (+ ?self:credits-cleared ?i)))
