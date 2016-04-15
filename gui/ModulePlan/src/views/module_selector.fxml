@@ -27,4 +27,9 @@
         </ListView>
         <TextField promptText="Search..." fx:id="searchField"></TextField>
     </VBox>
+    <VBox>
+        <Label text="Error list:"></Label>
+        <ListView fx:id="errorView" VBox.vgrow="ALWAYS">
+        </ListView>
+    </VBox>
 </fx:root>

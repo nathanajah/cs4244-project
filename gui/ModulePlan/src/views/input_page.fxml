@@ -15,9 +15,6 @@
     </padding>
     <HBox spacing="10">
         <ModuleSelector fx:id="moduleSelector" HBox.hgrow="ALWAYS"/>
-        <VBox fx:id="errorVBox" prefWidth="200">
-            <Label fx:id="errorLabel"></Label>
-        </VBox>
     </HBox>
 
     <HBox>

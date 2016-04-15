@@ -41,7 +41,6 @@ public class MainPage extends StackPane {
         try {
             Map<Module, Integer> semesterMappings = analyzer.analyze(takenModules, futureModules, availableModules, semesters);
             resultPage.setSemesterMapping(FXCollections.observableMap(semesterMappings));
-            inputPage.clearError();
             inputPage.setVisible(false);
             resultPage.setVisible(true);
         } catch (PreprocessException e) {

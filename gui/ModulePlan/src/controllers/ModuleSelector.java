@@ -1,5 +1,7 @@
 package controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -14,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import models.Module;
+import util.ErrorHighlighter;
 import util.IModuleLoader;
 import util.MockModuleLoader;
 import util.ModuleLoader;
@@ -35,15 +38,20 @@ public class ModuleSelector extends HBox {
     private ListView<Module> futureView;
 
     @FXML
+    private ListView<String> errorView;
+
+    @FXML
     private TextField searchField;
 
     private ObservableList<Module> takenModules = FXCollections.observableArrayList();
     private ObservableList<Module> futureModules = FXCollections.observableArrayList();
     private ObservableList<Module> availableModules = FXCollections.observableArrayList();
     private ObservableList<Module> filteredAvailableModules = FXCollections.observableArrayList();
+    private ObservableList<String> errorList = FXCollections.observableArrayList();
     private List<Module> moduleList = new ArrayList<Module>();
 
     private DataFormat moduleDataFormat = new DataFormat("module");
+    private final ErrorHighlighter errors = new ErrorHighlighter();
 
     /**
      * Generate the onDragDetected EventHandler for a list.
@@ -129,6 +137,13 @@ public class ModuleSelector extends HBox {
                 setText(null);
                 setGraphic(null);
             } else {
+                if (errors.isHighlighted(item.getCode())) {
+                    if (!getStyleClass().contains("highlighted")) {
+                        getStyleClass().add("highlighted");
+                    }
+                } else {
+                    getStyleClass().remove("highlighted");
+                }
                 setText(item.toString());
             }
         }
@@ -138,10 +153,24 @@ public class ModuleSelector extends HBox {
      */
     private void attachViews() {
         takenView.setItems(takenModules);
+        errorView.setItems(errorList);
+        errorView.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                        errors.setHighlight(t1);
+                        filteredAvailableModules.setAll();
+                        for (Module module : availableModules) {
+                            if (module.getCode().contains(searchField.getText()) ||
+                                    module.getName().contains(searchField.getText())) {
+                                filteredAvailableModules.add(module);
+                            }
+                        }
+                    }
+                });
         availableView.setCellFactory(new Callback<ListView<Module>, ListCell<Module>>() {
             public ListCell<Module> call(ListView<Module> list) {
                 AvailableCell cell = new AvailableCell();
-                cell.getStyleClass().add("highlighted");
                 return cell;
             }
         });
@@ -160,6 +189,10 @@ public class ModuleSelector extends HBox {
         takenView.setOnDragOver(generateOnDragOverHandler(takenView));
         availableView.setOnDragOver(generateOnDragOverHandler(availableView));
         futureView.setOnDragOver(generateOnDragOverHandler(futureView));
+    }
+
+    public void setError(String[] messages) {
+        errorList.setAll(messages);
     }
 
     /**
@@ -224,7 +257,6 @@ public class ModuleSelector extends HBox {
                         for (Module addModule : change.getAddedSubList()) {
                             if (!availableModules.contains(addModule)) {
                                 availableModules.add(addModule);
-
                             }
                         }
                     }

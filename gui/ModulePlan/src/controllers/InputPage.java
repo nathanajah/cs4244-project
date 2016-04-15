@@ -25,12 +25,6 @@ public class InputPage extends VBox {
     @FXML
     private TextField semesters;
 
-    @FXML
-    private Label errorLabel;
-
-    @FXML
-    private VBox errorVBox;
-
     /**
      * onAction handler for the analyze button.
      *
@@ -95,17 +89,12 @@ public class InputPage extends VBox {
     }
 
     public void setError(String[] messages) {
-        errorVBox.setVisible(true);
         StringBuilder x = new StringBuilder();
         for (String message : messages) {
             x.append(message);
             x.append("\n");
         }
-        errorLabel.setText(x.toString());
-    }
-
-    public void clearError() {
-        errorVBox.setVisible(false);
+        moduleSelector.setError(messages);
     }
 
     private ObjectProperty<EventHandler<ActionEvent>> propertyOnAnalyze = new SimpleObjectProperty<>();
