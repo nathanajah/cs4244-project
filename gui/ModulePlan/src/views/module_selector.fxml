@@ -25,6 +25,6 @@
         <Label text="Modules available:"></Label>
         <ListView fx:id="availableView" VBox.vgrow="ALWAYS">
         </ListView>
-        <TextField promptText="Search..."></TextField>
+        <TextField promptText="Search..." fx:id="searchField"></TextField>
     </VBox>
 </fx:root>

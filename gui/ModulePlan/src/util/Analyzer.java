@@ -43,7 +43,7 @@ public class Analyzer implements IAnalyzer {
                 } catch (Exception e) {
                 }
             }
-    //        throw new PreprocessException(messages);
+            throw new PreprocessException(messages);
         }
 
         env.load("../../selectModules.clp");

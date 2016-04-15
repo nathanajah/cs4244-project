@@ -25,31 +25,6 @@ public class ModuleLoader implements IModuleLoader{
         env.load("../../templates.clp");
         env.load("../../intializeModules.clp");
         env.run();
-
-        Map<String, String> moduleNameMap = new HashMap<String, String>();
-        try {
-            File file = new File("../../timetable_sem1.json");
-
-            JSONTokener tokener = new JSONTokener(new FileInputStream(file));
-            JSONArray array = new JSONArray(tokener);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject obj = array.getJSONObject(i);
-                String code = obj.getString("ModuleCode");
-                String name = obj.getString("ModuleTitle");
-                moduleNameMap.put(code, name);
-            }
-
-            file = new File("../../timetable_sem2.json");
-            tokener = new JSONTokener(new FileInputStream(file));
-            array = new JSONArray(tokener);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject obj = array.getJSONObject(i);
-                String code = obj.getString("ModuleCode");
-                String name = obj.getString("ModuleTitle");
-                moduleNameMap.put(code, name);
-            }
-        } catch(FileNotFoundException e) {
-        }
         List<Module> modules = new ArrayList<Module>();
         MultifieldValue mv = (MultifieldValue)env.eval("(find-all-instances ((?m MODULE)) TRUE)");
         int num = mv.size();
@@ -58,16 +33,11 @@ public class ModuleLoader implements IModuleLoader{
             InstanceAddressValue x = (InstanceAddressValue)env.eval("(instance-address " + name.instanceNameValue() + ")");
             Module module = new Module();
             String moduleCode = ((LexemeValue)x.directGetSlot("module-code")).lexemeValue();
+            String moduleName = ((LexemeValue)x.directGetSlot("module-name")).lexemeValue();
+            String moduleLevel = String.valueOf(((IntegerValue)x.directGetSlot("level")).intValue());
             module.setCode(moduleCode);
-            module.setName(moduleNameMap.get(moduleCode));
-            String level = "";
-            for (int j = 0; j < moduleCode.length(); j++) {
-                if (Character.isDigit(moduleCode.charAt(j))) {
-                    level = moduleCode.substring(j, j + 1);
-                    break;
-                }
-            }
-            module.setLevel(level);
+            module.setName(moduleName);
+            module.setLevel(moduleLevel);
             modules.add(module);
         }
         return modules;

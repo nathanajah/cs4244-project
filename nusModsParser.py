@@ -16,9 +16,12 @@ timetables = {}
 
 
 def isScienceModule(moduleCode):
-	foundationScienceModules = 	['MA1301',
+	foundationScienceModules = 	[
+						'CS2101',
+						'MA1301',
 						'MA1301FC',
 						'MA1301X',
+						'MA1521',
 						'MA1101R',
 						'ST2334',
 						'ST2131',
