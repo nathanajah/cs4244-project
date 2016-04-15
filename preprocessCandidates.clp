@@ -140,6 +140,8 @@
     (not
         (or
             (object (is-a MODULE_STATUS) (module-code CS1010) (status candidate|taken))
+            (object (is-a MODULE_STATUS) (module-code CS1010J) (status candidate|taken))
+            (object (is-a MODULE_STATUS) (module-code CS1010X) (status candidate|taken))
             (object (is-a MODULE_STATUS) (module-code CS1101S) (status candidate|taken))
             ))
     =>
