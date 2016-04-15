@@ -1,3 +1,10 @@
+; Manually assert prerequisites for CS2101
+(defrule assert-cs2101-prerequisites
+    (declare (salience 50))
+    (object (is-a MODULE_STATUS) (module-code CS2101) (status candidate))
+    =>
+    (assert (MODULE_PREREQUISITES (module-code CS2101) (prerequisites CS1020 CS1020E CS2020))))
+
 ; Auto take internship modules as semester 0
 (defrule select-internship-CP3200
     (declare (salience 50))
