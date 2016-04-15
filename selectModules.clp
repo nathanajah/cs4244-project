@@ -1,3 +1,10 @@
+; Manually assert prerequisites for CS2101
+(defrule assert-cs2101-prerequisites
+    (declare (salience 50))
+    (object (is-a MODULE_STATUS) (module-code CS2101) (status candidate))
+    =>
+    (assert (MODULE_PREREQUISITES (module-code CS2101) (prerequisites CS1020 CS1020E CS2020))))
+
 ; Auto take internship modules as semester 0
 (defrule select-internship-CP3200
     (declare (salience 50))
@@ -223,7 +230,7 @@
     =>
     (bind ?error (str-cat "Cannot fix " ?module-code " at semester " ?current-semester-number ": "))
     (if (eq (send ?module-status get-fulfilled-semester) NO) then (assert (error (str-cat ?error "not available in semester"))))
-    (if (eq (send ?module-status get-fulfilled-prerequisites) NO) then (assert (error (str-cat ?error "not available in semester"))))
+    (if (eq (send ?module-status get-fulfilled-prerequisites) NO) then (assert (error (str-cat ?error "prerequisites not fulfilled"))))
     )
 
 (defrule process-current-semester
@@ -246,3 +253,17 @@
         (send ?module-status put-fulfilled-prerequisites YES))
     (refresh check-module-prerequisites)
     (refresh reset-module-semester))
+
+; Error message for modules that cannot be put into timetable
+(defrule remaining-modules-error
+    ?module-status <- (object (is-a MODULE_STATUS) (module-code ?module-code) (status candidate))
+    =>
+    (bind ?error (str-cat ?module-code " could not fit into plan: "))
+    (if (eq (send ?module-status get-fulfilled-semester) NO) then 
+        (assert (error (str-cat ?error "not available in semester"))))
+    (if (eq (send ?module-status get-fulfilled-prerequisites) NO) then 
+        (assert (error (str-cat ?error "prerequisites not fulfilled"))))
+    (if (eq (send ?module-status get-fulfilled-timetable) NO) then 
+        (assert (error (str-cat ?error "could not put into timetable"))))
+    (if (eq (send ?module-status get-fulfilled-exam-time) NO) then 
+        (assert (error (str-cat ?error "exam time clash")))))
