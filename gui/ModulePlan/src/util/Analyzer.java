@@ -21,9 +21,6 @@ public class Analyzer implements IAnalyzer {
 
         env.load("../../preprocessCandidates.clp");
         env.reset();
-        env.watch("activations");
-        env.watch("rules");
-        env.watch("facts");
         for (Module module : taken) {
             env.makeInstance("([" + module.getCode() + "_STATUS] of MODULE_STATUS (module-code " + module.getCode() + ") (status taken))");
         }

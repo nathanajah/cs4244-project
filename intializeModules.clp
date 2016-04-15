@@ -1286,7 +1286,7 @@
 	(assert (TIMETABLE_SLOT (module-code MA1104) (timings Tuesday-2 Tuesday-3 Friday-2 Friday-3)))
 
 	(make-instance [MA1301] of MODULE (module-code MA1301) (module-name "Introductory Mathematics") (mcs 4) (level 1) (module-prefix MA) (is-ue NO) (chain-length 0) (semesters 1 2))
-	(assert (MODULE_PRECLUSIONS (module-code MA1301) (preclusions MA1301 MA1301X)))
+	(assert (MODULE_PRECLUSIONS (module-code MA1301) (preclusions MA1301 MA1301X )))
 	(assert (EXAM_TIME_SLOT (module-code MA1301) (semester 1) (exam-time 25-nov-afternoon)))
 	(assert (EXAM_TIME_SLOT (module-code MA1301) (semester 2) (exam-time 05-may-morning)))
 	(assert (TIMETABLE_SLOT (module-code MA1301) (timings Monday-8 Monday-9 Thursday-8 Thursday-9)))

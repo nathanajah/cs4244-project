@@ -3,13 +3,25 @@
     <output-path>$PROJECT_DIR$/out/artifacts/JavaFXApp</output-path>
     <properties id="javafx-properties">
       <options>
-        <option name="appClass" value="sample.Main" />
+        <option name="appClass" value="main.Main" />
+        <option name="description" value="" />
+        <option name="htmlParamFile" value="" />
+        <option name="paramFile" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
       </options>
     </properties>
     <root id="root">
       <element id="archive" name="JavaFXApp.jar">
+        <element id="file-copy" path="$PROJECT_DIR$/lib/CLIPSJNI.jar" />
+        <element id="directory" name="gui" />
         <element id="module-output" name="ModulePlan" />
       </element>
+      <element id="file-copy" path="$PROJECT_DIR$/lib/libCLIPSJNI.so" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../intializeModules.clp" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../preprocessCandidates.clp" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../templates.clp" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../selectModules.clp" />
     </root>
   </artifact>
 </component>
