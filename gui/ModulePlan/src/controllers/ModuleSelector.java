@@ -136,13 +136,18 @@ public class ModuleSelector extends HBox {
             if (empty) {
                 setText(null);
                 setGraphic(null);
+                if (getStyleClass().contains("highlighted")) {
+                    getStyleClass().remove("highlighted");
+                }
             } else {
                 if (errors.isHighlighted(item.getCode())) {
                     if (!getStyleClass().contains("highlighted")) {
                         getStyleClass().add("highlighted");
                     }
                 } else {
-                    getStyleClass().remove("highlighted");
+                    if (getStyleClass().contains("highlighted")) {
+                        getStyleClass().remove("highlighted");
+                    }
                 }
                 setText(item.toString());
             }

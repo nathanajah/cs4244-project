@@ -46,8 +46,8 @@ public class ErrorHighlighter {
 
     void highlightLevel4() {
         clips = new Environment();
-        clips.load("../../templates.clp");
-        clips.load("../../intializeModules.clp");
+        clips.load("templates.clp");
+        clips.load("intializeModules.clp");
         clips.reset();
         clips.run();
         MultifieldValue mv = (MultifieldValue)clips.eval("(find-all-instances ((?m MODULE)) TRUE)");
@@ -70,8 +70,8 @@ public class ErrorHighlighter {
 
     void highlightPreclusion(String moduleCode) {
         clips = new Environment();
-        clips.load("../../templates.clp");
-        clips.load("../../intializeModules.clp");
+        clips.load("templates.clp");
+        clips.load("intializeModules.clp");
         clips.reset();
         clips.run();
         MultifieldValue mv = (MultifieldValue)clips.eval("(find-all-facts ((?m MODULE_PREREQUISITES)) TRUE)");
@@ -96,8 +96,8 @@ public class ErrorHighlighter {
 
     void highlightPrerequisite(String moduleCode) {
         clips = new Environment();
-        clips.load("../../templates.clp");
-        clips.load("../../intializeModules.clp");
+        clips.load("templates.clp");
+        clips.load("intializeModules.clp");
         clips.reset();
         clips.run();
         MultifieldValue mv = (MultifieldValue)clips.eval("(find-all-facts ((?m MODULE_PREREQUISITES)) TRUE)");

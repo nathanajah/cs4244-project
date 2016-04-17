@@ -15,11 +15,11 @@ public class Analyzer implements IAnalyzer {
     @Override
     public Map<Module, Integer> analyze(List<Module> taken, List<Module> future, List<Module> available, int semesters) throws PreprocessException {
         Environment env = new Environment();
-        env.load("../../templates.clp");
+        env.load("templates.clp");
         env.reset();
-        env.load("../../intializeModules.clp");
+        env.load("intializeModules.clp");
 
-        env.load("../../preprocessCandidates.clp");
+        env.load("preprocessCandidates.clp");
         env.reset();
         for (Module module : taken) {
             env.makeInstance("([" + module.getCode() + "_STATUS] of MODULE_STATUS (module-code " + module.getCode() + ") (status taken))");
@@ -43,7 +43,7 @@ public class Analyzer implements IAnalyzer {
             throw new PreprocessException(messages);
         }
 
-        env.load("../../selectModules.clp");
+        env.load("selectModules.clp");
         env.run();
         MultifieldValue mv2 = (MultifieldValue)env.eval("(find-all-facts((?f MODULE_SELECTED)) TRUE)");
         int num2 = mv2.size();

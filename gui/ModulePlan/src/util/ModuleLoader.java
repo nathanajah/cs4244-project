@@ -2,18 +2,9 @@ package util;
 
 import models.Module;
 import net.sf.clipsrules.jni.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by nathanajah on 4/12/16.
@@ -22,8 +13,8 @@ public class ModuleLoader implements IModuleLoader{
     @Override
     public List<Module> loadModule() {
         Environment env = new Environment();
-        env.load("../../templates.clp");
-        env.load("../../intializeModules.clp");
+        env.load("templates.clp");
+        env.load("intializeModules.clp");
         env.run();
         List<Module> modules = new ArrayList<Module>();
         MultifieldValue mv = (MultifieldValue)env.eval("(find-all-instances ((?m MODULE)) TRUE)");
