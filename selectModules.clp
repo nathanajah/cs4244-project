@@ -5,6 +5,14 @@
     =>
     (assert (MODULE_PREREQUISITES (module-code CS2101) (prerequisites CS1020 CS1020E CS2020))))
 
+; Force all module prereqs to be YES
+(defrule initialize-fulfilled-prerequisites
+    (declare (salience 50))
+    =>
+    (do-for-all-instances ((?module-status MODULE_STATUS))
+        (eq ?module-status:status candidate)
+        (send ?module-status put-fulfilled-prerequisites YES)))
+
 ; Auto take internship modules as semester 0
 (defrule select-internship-CP3200
     (declare (salience 50))
